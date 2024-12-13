@@ -1,0 +1,20 @@
+warp 0 :  PC=0x1c8 (vecadd-rodinia-2.4.sm_75.ptx:26) ld.param.u64 %rd1, [_Z12vecaddKernelPiS_S_i_param_0];
+warp 0 :  PC=0x1d0 (vecadd-rodinia-2.4.sm_75.ptx:27) ld.param.u64 %rd2, [_Z12vecaddKernelPiS_S_i_param_1];
+warp 0 :  PC=0x1d8 (vecadd-rodinia-2.4.sm_75.ptx:28) ld.param.u64 %rd3, [_Z12vecaddKernelPiS_S_i_param_2];
+warp 0 :  PC=0x1e0 (vecadd-rodinia-2.4.sm_75.ptx:29) cvta.to.global.u64 %rd4, %rd3;
+warp 0 :  PC=0x1e8 (vecadd-rodinia-2.4.sm_75.ptx:30) cvta.to.global.u64 %rd5, %rd2;
+warp 0 :  PC=0x1f0 (vecadd-rodinia-2.4.sm_75.ptx:31) cvta.to.global.u64 %rd6, %rd1;
+warp 0 :  PC=0x1f8 (vecadd-rodinia-2.4.sm_75.ptx:32) mov.u32 %r1, %ntid.x;
+warp 0 :  PC=0x200 (vecadd-rodinia-2.4.sm_75.ptx:33) mov.u32 %r2, %ctaid.x;
+warp 0 :  PC=0x208 (vecadd-rodinia-2.4.sm_75.ptx:34) mov.u32 %r3, %tid.x;
+warp 0 :  PC=0x210 (vecadd-rodinia-2.4.sm_75.ptx:35) mad.lo.s32 %r4, %r2, %r1, %r3;
+warp 0 :  PC=0x218 (vecadd-rodinia-2.4.sm_75.ptx:36) mul.wide.s32 %rd7, %r4, 4;
+warp 0 :  PC=0x220 (vecadd-rodinia-2.4.sm_75.ptx:37) add.s64 %rd8, %rd6, %rd7;
+warp 0 :  PC=0x228 (vecadd-rodinia-2.4.sm_75.ptx:38) ld.global.u32 %r5, [%rd8];
+warp 0 :  PC=0x230 (vecadd-rodinia-2.4.sm_75.ptx:39) add.s64 %rd9, %rd5, %rd7;
+warp 0 :  PC=0x238 (vecadd-rodinia-2.4.sm_75.ptx:40) ld.global.u32 %r6, [%rd9];
+warp 0 :  PC=0x240 (vecadd-rodinia-2.4.sm_75.ptx:41) add.s32 %r7, %r6, %r5;
+warp 0 :  PC=0x248 (vecadd-rodinia-2.4.sm_75.ptx:42) add.s64 %rd10, %rd4, %rd7;
+warp 0 :  PC=0x250 (vecadd-rodinia-2.4.sm_75.ptx:43) st.global.u32 [%rd10], %r7;
+warp 0 :  PC=0x258 (vecadd-rodinia-2.4.sm_75.ptx:44) ret;
+kernel_execution_time : 77
