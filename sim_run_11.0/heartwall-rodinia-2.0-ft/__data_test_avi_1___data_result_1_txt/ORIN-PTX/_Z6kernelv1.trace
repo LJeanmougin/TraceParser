@@ -233,4 +233,4 @@ warp 0 :  PC=0x22da8 (heartwall-rodinia-2.4.sm_75.ptx:5037) setp.ne.s32%p465, %r
 warp 0 :  PC=0x22db0 (heartwall-rodinia-2.4.sm_75.ptx:5038) and.pred %p466, %p465, %p464;
 warp 0 :  PC=0x22db8 (heartwall-rodinia-2.4.sm_75.ptx:5039) @!%p466 bra BB0_452;
 warp 0 :  PC=0x23558 (heartwall-rodinia-2.4.sm_75.ptx:5303) ret;
-kernel_execution_time : 1235
+kernel_execution_time : 1211

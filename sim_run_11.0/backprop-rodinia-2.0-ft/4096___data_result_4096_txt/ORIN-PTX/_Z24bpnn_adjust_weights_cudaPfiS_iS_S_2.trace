@@ -75,4 +75,4 @@ warp 0 :  PC=0x13e0 (backprop-rodinia-2.4.sm_75.ptx:226) fma.rn.f64 %fd24, %fd21
 warp 0 :  PC=0x13e8 (backprop-rodinia-2.4.sm_75.ptx:227) cvt.rn.f32.f64%f16, %fd24;
 warp 0 :  PC=0x13f0 (backprop-rodinia-2.4.sm_75.ptx:228) st.global.f32 [%rd17], %f16;
 warp 0 :  PC=0x13f8 (backprop-rodinia-2.4.sm_75.ptx:231) ret;
-kernel_execution_time : 1015
+kernel_execution_time : 993

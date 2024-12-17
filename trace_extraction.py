@@ -53,7 +53,11 @@ def extract_traces(traces_dir : str, target_dir_name : str):
                             else:
                                 ptx_instr = branch_inst + "BB_" + str(branch_uid) + ";"
                         except :
-                            branch_inst = None
+                            if "bra.uni" in ptx_instr:
+                                branch_inst = "bra.uni BB_" + str(branch_uid) + ";"
+                                ptx_instr = branch_inst 
+                            else:
+                                branch_inst = None
                         out_files[warp_idx].write(ptx_instr + "\n")
                         if branch_inst:
                             out_files[warp_idx].write("\nBB_" + str(branch_uid) + ":\n")

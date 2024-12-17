@@ -547,4 +547,4 @@ warp 0 :  PC=0x7840 (nw-rodinia-2.4.sm_75.ptx:678) ld.shared.u32 %r349, [%r6+109
 warp 0 :  PC=0x7848 (nw-rodinia-2.4.sm_75.ptx:679) add.s64 %rd46, %rd45, %rd48;
 warp 0 :  PC=0x7850 (nw-rodinia-2.4.sm_75.ptx:680) st.global.u32 [%rd46], %r349;
 warp 0 :  PC=0x7858 (nw-rodinia-2.4.sm_75.ptx:681) ret;
-kernel_execution_time : 5096
+kernel_execution_time : 5074

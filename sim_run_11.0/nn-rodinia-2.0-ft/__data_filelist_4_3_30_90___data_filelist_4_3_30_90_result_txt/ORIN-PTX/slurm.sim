@@ -1,5 +1,5 @@
 #! /bin/bash
-#SBATCH -J nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_0.0
+#SBATCH -J nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_2.0
 #SBATCH --threads-per-core=1
 #SBATCH --cpus-per-task=1
 #SBATCH --nodes=1
@@ -8,12 +8,12 @@
 #SBATCH -p batch
 #SBATCH --mail-type=END,FAIL
 #SBATCH --export=ALL
-#SBATCH --output=/tmp/nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_0.0.o%j
-#SBATCH --error=/tmp/nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_0.0.e%j
+#SBATCH --output=/tmp/nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_2.0.o%j
+#SBATCH --error=/tmp/nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_2.0.e%j
 
 copy_output() {
-    mv /tmp/nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_0.0.e19 ./nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_0.0.e19
-    mv /tmp/nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_0.0.o19 ./nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_0.0.o19
+    mv /tmp/nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_2.0.e8 ./nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_2.0.e8
+    mv /tmp/nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_2.0.o8 ./nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_2.0.o8
 }
 
 trap copy_output ERR
@@ -21,7 +21,7 @@ trap copy_output ERR
 set -e
 
 if [ "$GPGPUSIM_SETUP_ENVIRONMENT_WAS_RUN" != "1" ]; then
-    export GPGPUSIM_ROOT=/home/runner/accel-sim/gpu-simulator/gpgpu-sim
+    export GPGPUSIM_ROOT=/home/runner/accel-sim/accel-sim-framework/gpu-simulator/gpgpu-sim
     source $GPGPUSIM_ROOT/setup_environment
 else
     echo "Skipping setup_environment - already set"
@@ -29,18 +29,18 @@ fi
 
 echo "doing: export -n PTX_SIM_USE_PTX_FILE"
 export -n PTX_SIM_USE_PTX_FILE
-echo "doing: export LD_LIBRARY_PATH=/home/runner/accel-sim/util/job_launching/../../sim_run_11.0/gpgpu-sim-builds/gpgpu-sim_git-commit-61396d8_modified_0.0:$LD_LIBRARY_PATH"
-export LD_LIBRARY_PATH=/home/runner/accel-sim/util/job_launching/../../sim_run_11.0/gpgpu-sim-builds/gpgpu-sim_git-commit-61396d8_modified_0.0:$LD_LIBRARY_PATH
-echo "doing: cd /home/runner/accel-sim/util/job_launching/../../sim_run_11.0/nn-rodinia-2.0-ft/__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt/ORIN-PTX"
-cd /home/runner/accel-sim/util/job_launching/../../sim_run_11.0/nn-rodinia-2.0-ft/__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt/ORIN-PTX
-echo "doing: export OPENCL_CURRENT_TEST_PATH=/home/runner/accel-sim/util/job_launching/../../sim_run_11.0/nn-rodinia-2.0-ft/__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt/ORIN-PTX"
-export OPENCL_CURRENT_TEST_PATH=/home/runner/accel-sim/util/job_launching/../../sim_run_11.0/nn-rodinia-2.0-ft/__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt/ORIN-PTX
+echo "doing: export LD_LIBRARY_PATH=/home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/gpgpu-sim-builds/gpgpu-sim_git-commit-61396d8_modified_2.0:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH=/home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/gpgpu-sim-builds/gpgpu-sim_git-commit-61396d8_modified_2.0:$LD_LIBRARY_PATH
+echo "doing: cd /home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/nn-rodinia-2.0-ft/__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt/ORIN-PTX"
+cd /home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/nn-rodinia-2.0-ft/__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt/ORIN-PTX
+echo "doing: export OPENCL_CURRENT_TEST_PATH=/home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/nn-rodinia-2.0-ft/__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt/ORIN-PTX"
+export OPENCL_CURRENT_TEST_PATH=/home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/nn-rodinia-2.0-ft/__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt/ORIN-PTX
 echo "doing: export OPENCL_REMOTE_GPU_HOST=REPLACE_REMOTE_HOST"
 export OPENCL_REMOTE_GPU_HOST=REPLACE_REMOTE_HOST
 echo "doing "
 
-echo "doing: export PATH=/home/runner/accel-sim/gpu-simulator/gpgpu-sim/bin:/usr/local/cuda-11.0//bin:/usr/local/cuda-11.0//bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-export PATH=/home/runner/accel-sim/gpu-simulator/gpgpu-sim/bin:/usr/local/cuda-11.0//bin:/usr/local/cuda-11.0//bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+echo "doing: export PATH=/home/runner/accel-sim/accel-sim-framework/gpu-simulator/gpgpu-sim/bin:/usr/local/cuda-11.0//bin:/usr/local/cuda-11.0//bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+export PATH=/home/runner/accel-sim/accel-sim-framework/gpu-simulator/gpgpu-sim/bin:/usr/local/cuda-11.0//bin:/usr/local/cuda-11.0//bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # Uncomment to force blocking torque launches
 # this needs to be commented for concurrent kernel ptx mode
@@ -48,6 +48,6 @@ echo "doing export CUDA_LAUNCH_BLOCKING=1"
 export CUDA_LAUNCH_BLOCKING=1
 
 
-echo "doing:  /home/runner/accel-sim/gpu-app-collection/src/..//bin/11.0/release/nn-rodinia-2.0-ft ./data/filelist_4 3 30 90 ./data/filelist_4_3_30_90-result.txt"
- /home/runner/accel-sim/gpu-app-collection/src/..//bin/11.0/release/nn-rodinia-2.0-ft ./data/filelist_4 3 30 90 ./data/filelist_4_3_30_90-result.txt
+echo "doing:  /home/runner/accel-sim/accel-sim-framework/gpu-app-collection/src/..//bin/11.0/release/nn-rodinia-2.0-ft ./data/filelist_4 3 30 90 ./data/filelist_4_3_30_90-result.txt"
+ /home/runner/accel-sim/accel-sim-framework/gpu-app-collection/src/..//bin/11.0/release/nn-rodinia-2.0-ft ./data/filelist_4 3 30 90 ./data/filelist_4_3_30_90-result.txt
 copy_output

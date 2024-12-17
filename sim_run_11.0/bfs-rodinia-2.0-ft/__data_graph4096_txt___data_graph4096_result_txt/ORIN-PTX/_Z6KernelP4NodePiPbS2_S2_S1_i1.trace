@@ -247,4 +247,4 @@ warp 0 :  PC=0xa18 (bfs-rodinia-2.4.sm_75.ptx:95) add.s32 %r22, %r22, 1;
 warp 0 :  PC=0xa20 (bfs-rodinia-2.4.sm_75.ptx:96) setp.lt.s32%p5, %r22, %r19;
 warp 0 :  PC=0xa28 (bfs-rodinia-2.4.sm_75.ptx:97) @%p5 bra BB0_4;
 warp 0 :  PC=0xa30 (bfs-rodinia-2.4.sm_75.ptx:100) ret;
-kernel_execution_time : 1023
+kernel_execution_time : 997

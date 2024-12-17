@@ -133,7 +133,9 @@ add.s32 %r135, %r53, %r75;
 add.s32 %r156, %r135, 64;
 add.s32 %r154, %r135, -4;
 add.s32 %r155, %r135, 4;
-bra.uni BB0_25;
+bra.uni BB_7;
+
+BB_7:
 ld.shared.f32 %f17, [%r156];
 sub.f32 %f2, %f17, %f1;
 ld.shared.f32 %f18, [%r155];
@@ -175,18 +177,24 @@ setp.lt.f32%p19, %f6, 0f00000000;
 mov.u32 %r142, _ZZ11srad_cuda_1PfS_S_S_S_S_iifE11temp_result;
 add.s32 %r143, %r142, %r50;
 add.s32 %r43, %r143, %r53;
-@%p19 bra BB_7;
-
-BB_7:
-bra.uni BB0_26;
-setp.gt.f32%p20, %f6, 0f3F800000;
-@%p20 bra BB_8;
+@%p19 bra BB_8;
 
 BB_8:
+bra.uni BB_9;
+
+BB_9:
+setp.gt.f32%p20, %f6, 0f3F800000;
+@%p20 bra BB_10;
+
+BB_10:
 mov.u32 %r145, 1065353216;
 st.shared.u32 [%r43], %r145;
-bra.uni BB0_30;
-bra.uni BB0_27;
+bra.uni BB_11;
+
+BB_11:
+bra.uni BB_12;
+
+BB_12:
 st.shared.f32 [%r43], %f6;
 cvta.to.global.u64 %rd2, %rd9;
 cvta.to.global.u64 %rd3, %rd10;

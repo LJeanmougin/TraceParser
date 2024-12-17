@@ -1190,4 +1190,4 @@ warp 0 :  PC=0xb978 (lud-rodinia-2.8.sm_75.ptx:1491) ld.shared.f32 %f472, [%r93+
 warp 0 :  PC=0xb980 (lud-rodinia-2.8.sm_75.ptx:1492) add.s64 %rd89, %rd88, %rd74;
 warp 0 :  PC=0xb988 (lud-rodinia-2.8.sm_75.ptx:1493) st.global.f32 [%rd89], %f472;
 warp 0 :  PC=0xb990 (lud-rodinia-2.8.sm_75.ptx:1496) ret;
-kernel_execution_time : 14568
+kernel_execution_time : 14490

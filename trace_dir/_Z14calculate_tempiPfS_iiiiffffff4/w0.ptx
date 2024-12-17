@@ -130,30 +130,32 @@ mov.u16 %rs9, 0;
 @%p21 bra BB_2;
 
 BB_2:
-bra.uni BB0_5;
+bra.uni BB_3;
+
+BB_3:
 setp.gt.s32%p22, %r3, %r20;
 setp.lt.s32%p23, %r3, %r84;
 or.pred %p24, %p23, %p22;
 or.pred %p25, %p24, %p1;
 or.pred %p26, %p25, %p2;
-@%p26 bra BB_3;
-
-BB_3:
-bar.sync 0;
-setp.eq.s32%p27, %r83, 0;
-@%p27 bra BB_4;
+@%p26 bra BB_4;
 
 BB_4:
-setp.eq.s16%p28, %rs9, 0;
-@%p28 bra BB_5;
+bar.sync 0;
+setp.eq.s32%p27, %r83, 0;
+@%p27 bra BB_5;
 
 BB_5:
+setp.eq.s16%p28, %rs9, 0;
+@%p28 bra BB_6;
+
+BB_6:
 bar.sync 0;
 add.s32 %r83, %r83, 1;
 setp.lt.s32%p29, %r84, %r23;
-@%p29 bra BB_6;
+@%p29 bra BB_7;
 
-BB_6:
+BB_7:
 mov.u32 %r82, 14;
 sub.s32 %r20, %r82, %r84;
 setp.le.s32%p19, %r4, %r20;
@@ -161,67 +163,35 @@ add.s32 %r84, %r84, 1;
 setp.ge.s32%p20, %r4, %r84;
 and.pred %p21, %p19, %p20;
 mov.u16 %rs9, 0;
-@%p21 bra BB_7;
+@%p21 bra BB_8;
 
-BB_7:
-bra.uni BB0_5;
+BB_8:
+bra.uni BB_9;
+
+BB_9:
 setp.gt.s32%p22, %r3, %r20;
 setp.lt.s32%p23, %r3, %r84;
 or.pred %p24, %p23, %p22;
 or.pred %p25, %p24, %p1;
 or.pred %p26, %p25, %p2;
-@%p26 bra BB_8;
-
-BB_8:
-bar.sync 0;
-setp.eq.s32%p27, %r83, 0;
-@%p27 bra BB_9;
-
-BB_9:
-setp.eq.s16%p28, %rs9, 0;
-@%p28 bra BB_10;
+@%p26 bra BB_10;
 
 BB_10:
 bar.sync 0;
-add.s32 %r83, %r83, 1;
-setp.lt.s32%p29, %r84, %r23;
-@%p29 bra BB_11;
+setp.eq.s32%p27, %r83, 0;
+@%p27 bra BB_11;
 
 BB_11:
-mov.u32 %r82, 14;
-sub.s32 %r20, %r82, %r84;
-setp.le.s32%p19, %r4, %r20;
-add.s32 %r84, %r84, 1;
-setp.ge.s32%p20, %r4, %r84;
-and.pred %p21, %p19, %p20;
-mov.u16 %rs9, 0;
-@%p21 bra BB_12;
+setp.eq.s16%p28, %rs9, 0;
+@%p28 bra BB_12;
 
 BB_12:
-bra.uni BB0_5;
-setp.gt.s32%p22, %r3, %r20;
-setp.lt.s32%p23, %r3, %r84;
-or.pred %p24, %p23, %p22;
-or.pred %p25, %p24, %p1;
-or.pred %p26, %p25, %p2;
-@%p26 bra BB_13;
-
-BB_13:
-bar.sync 0;
-setp.eq.s32%p27, %r83, 0;
-@%p27 bra BB_14;
-
-BB_14:
-setp.eq.s16%p28, %rs9, 0;
-@%p28 bra BB_15;
-
-BB_15:
 bar.sync 0;
 add.s32 %r83, %r83, 1;
 setp.lt.s32%p29, %r84, %r23;
-@%p29 bra BB_16;
+@%p29 bra BB_13;
 
-BB_16:
+BB_13:
 mov.u32 %r82, 14;
 sub.s32 %r20, %r82, %r84;
 setp.le.s32%p19, %r4, %r20;
@@ -229,33 +199,35 @@ add.s32 %r84, %r84, 1;
 setp.ge.s32%p20, %r4, %r84;
 and.pred %p21, %p19, %p20;
 mov.u16 %rs9, 0;
-@%p21 bra BB_17;
+@%p21 bra BB_14;
 
-BB_17:
-bra.uni BB0_5;
+BB_14:
+bra.uni BB_15;
+
+BB_15:
 setp.gt.s32%p22, %r3, %r20;
 setp.lt.s32%p23, %r3, %r84;
 or.pred %p24, %p23, %p22;
 or.pred %p25, %p24, %p1;
 or.pred %p26, %p25, %p2;
-@%p26 bra BB_18;
+@%p26 bra BB_16;
+
+BB_16:
+bar.sync 0;
+setp.eq.s32%p27, %r83, 0;
+@%p27 bra BB_17;
+
+BB_17:
+setp.eq.s16%p28, %rs9, 0;
+@%p28 bra BB_18;
 
 BB_18:
 bar.sync 0;
-setp.eq.s32%p27, %r83, 0;
-@%p27 bra BB_19;
-
-BB_19:
-setp.eq.s16%p28, %rs9, 0;
-@%p28 bra BB_20;
-
-BB_20:
-bar.sync 0;
 add.s32 %r83, %r83, 1;
 setp.lt.s32%p29, %r84, %r23;
-@%p29 bra BB_21;
+@%p29 bra BB_19;
 
-BB_21:
+BB_19:
 mov.u32 %r82, 14;
 sub.s32 %r20, %r82, %r84;
 setp.le.s32%p19, %r4, %r20;
@@ -263,33 +235,35 @@ add.s32 %r84, %r84, 1;
 setp.ge.s32%p20, %r4, %r84;
 and.pred %p21, %p19, %p20;
 mov.u16 %rs9, 0;
-@%p21 bra BB_22;
+@%p21 bra BB_20;
 
-BB_22:
-bra.uni BB0_5;
+BB_20:
+bra.uni BB_21;
+
+BB_21:
 setp.gt.s32%p22, %r3, %r20;
 setp.lt.s32%p23, %r3, %r84;
 or.pred %p24, %p23, %p22;
 or.pred %p25, %p24, %p1;
 or.pred %p26, %p25, %p2;
-@%p26 bra BB_23;
+@%p26 bra BB_22;
 
-BB_23:
+BB_22:
 bar.sync 0;
 setp.eq.s32%p27, %r83, 0;
-@%p27 bra BB_24;
+@%p27 bra BB_23;
+
+BB_23:
+setp.eq.s16%p28, %rs9, 0;
+@%p28 bra BB_24;
 
 BB_24:
-setp.eq.s16%p28, %rs9, 0;
-@%p28 bra BB_25;
-
-BB_25:
 bar.sync 0;
 add.s32 %r83, %r83, 1;
 setp.lt.s32%p29, %r84, %r23;
-@%p29 bra BB_26;
+@%p29 bra BB_25;
 
-BB_26:
+BB_25:
 mov.u32 %r82, 14;
 sub.s32 %r20, %r82, %r84;
 setp.le.s32%p19, %r4, %r20;
@@ -297,10 +271,12 @@ add.s32 %r84, %r84, 1;
 setp.ge.s32%p20, %r4, %r84;
 and.pred %p21, %p19, %p20;
 mov.u16 %rs9, 0;
-@%p21 bra BB_27;
+@%p21 bra BB_26;
+
+BB_26:
+bra.uni BB_27;
 
 BB_27:
-bra.uni BB0_5;
 setp.gt.s32%p22, %r3, %r20;
 setp.lt.s32%p23, %r3, %r84;
 or.pred %p24, %p23, %p22;
@@ -314,10 +290,46 @@ setp.eq.s32%p27, %r83, 0;
 @%p27 bra BB_29;
 
 BB_29:
-and.b16 %rs7, %rs9, 255;
-setp.eq.s16%p30, %rs7, 0;
-@%p30 bra BB_30;
+setp.eq.s16%p28, %rs9, 0;
+@%p28 bra BB_30;
 
 BB_30:
+bar.sync 0;
+add.s32 %r83, %r83, 1;
+setp.lt.s32%p29, %r84, %r23;
+@%p29 bra BB_31;
+
+BB_31:
+mov.u32 %r82, 14;
+sub.s32 %r20, %r82, %r84;
+setp.le.s32%p19, %r4, %r20;
+add.s32 %r84, %r84, 1;
+setp.ge.s32%p20, %r4, %r84;
+and.pred %p21, %p19, %p20;
+mov.u16 %rs9, 0;
+@%p21 bra BB_32;
+
+BB_32:
+bra.uni BB_33;
+
+BB_33:
+setp.gt.s32%p22, %r3, %r20;
+setp.lt.s32%p23, %r3, %r84;
+or.pred %p24, %p23, %p22;
+or.pred %p25, %p24, %p1;
+or.pred %p26, %p25, %p2;
+@%p26 bra BB_34;
+
+BB_34:
+bar.sync 0;
+setp.eq.s32%p27, %r83, 0;
+@%p27 bra BB_35;
+
+BB_35:
+and.b16 %rs7, %rs9, 255;
+setp.eq.s16%p30, %rs7, 0;
+@%p30 bra BB_36;
+
+BB_36:
 ret;
 }

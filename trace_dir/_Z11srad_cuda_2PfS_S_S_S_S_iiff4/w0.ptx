@@ -105,12 +105,18 @@ BB_3:
 add.s32 %r73, %r29, %r51;
 add.s32 %r81, %r73, 124;
 add.s32 %r82, %r43, 60;
-bra.uni BB1_11;
-bra.uni BB1_6;
-@%p4 bra BB_4;
+bra.uni BB_4;
 
 BB_4:
-bra.uni BB1_7;
+bra.uni BB_5;
+
+BB_5:
+@%p4 bra BB_6;
+
+BB_6:
+bra.uni BB_7;
+
+BB_7:
 add.s32 %r60, %r29, %r51;
 add.s32 %r62, %r60, %r32;
 add.s32 %r81, %r62, 64;

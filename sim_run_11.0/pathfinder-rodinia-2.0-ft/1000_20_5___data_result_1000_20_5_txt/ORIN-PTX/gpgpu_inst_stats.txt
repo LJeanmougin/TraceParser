@@ -1,6 +1,6 @@
 kernel line : count latency dram_traffic smem_bk_conflicts smem_warp gmem_access_generated gmem_warp exposed_latency warp_divergence
 pathfinder-rodinia-2.4.sm_75.ptx 169 : 128 640 0 0 0 0 0 0 0 
-pathfinder-rodinia-2.4.sm_75.ptx 166 : 108 648 0 0 0 16 4 0 0 
+pathfinder-rodinia-2.4.sm_75.ptx 166 : 108 324 0 0 0 16 4 0 0 
 pathfinder-rodinia-2.4.sm_75.ptx 165 : 108 864 0 0 0 0 0 0 0 
 pathfinder-rodinia-2.4.sm_75.ptx 164 : 108 864 0 0 0 0 0 0 0 
 pathfinder-rodinia-2.4.sm_75.ptx 163 : 108 540 0 0 0 0 0 0 0 
@@ -31,14 +31,14 @@ pathfinder-rodinia-2.4.sm_75.ptx 130 : 513 1539 0 19 19 0 0 0 0
 pathfinder-rodinia-2.4.sm_75.ptx 129 : 513 4104 0 0 0 0 0 0 0 
 pathfinder-rodinia-2.4.sm_75.ptx 128 : 513 3078 0 0 0 0 0 0 0 
 pathfinder-rodinia-2.4.sm_75.ptx 127 : 513 4104 0 0 0 0 0 0 0 
-pathfinder-rodinia-2.4.sm_75.ptx 126 : 513 4617 0 0 0 76 19 0 0 
+pathfinder-rodinia-2.4.sm_75.ptx 126 : 513 5643 0 0 0 76 19 0 0 
 pathfinder-rodinia-2.4.sm_75.ptx 125 : 513 4104 0 0 0 0 0 0 0 
 pathfinder-rodinia-2.4.sm_75.ptx 124 : 513 4617 0 0 0 0 0 0 0 
 pathfinder-rodinia-2.4.sm_75.ptx 72 : 108 324 0 4 4 0 0 0 0 
 pathfinder-rodinia-2.4.sm_75.ptx 71 : 108 864 0 0 0 0 0 0 0 
 pathfinder-rodinia-2.4.sm_75.ptx 70 : 108 540 0 0 0 0 0 0 0 
 pathfinder-rodinia-2.4.sm_75.ptx 69 : 108 540 0 0 0 0 0 0 0 
-pathfinder-rodinia-2.4.sm_75.ptx 68 : 108 972 0 0 0 16 4 0 0 
+pathfinder-rodinia-2.4.sm_75.ptx 68 : 108 729 0 0 0 16 4 0 0 
 pathfinder-rodinia-2.4.sm_75.ptx 67 : 108 864 0 0 0 0 0 0 0 
 pathfinder-rodinia-2.4.sm_75.ptx 66 : 108 864 0 0 0 0 0 0 0 
 pathfinder-rodinia-2.4.sm_75.ptx 65 : 108 540 0 0 0 0 0 0 0 

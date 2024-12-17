@@ -170,7 +170,9 @@ bar.sync 0;
 @%p1 bra BB_10;
 
 BB_10:
-bra.uni BB0_8;
+bra.uni BB_11;
+
+BB_11:
 cvta.to.global.u64 %rd10, %rd5;
 add.s32 %r34, %r18, %r13;
 ld.shared.f32 %f19, [%r34];
