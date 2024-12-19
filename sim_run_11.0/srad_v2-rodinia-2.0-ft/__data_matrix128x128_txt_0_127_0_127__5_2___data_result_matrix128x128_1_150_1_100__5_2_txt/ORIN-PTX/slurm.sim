@@ -1,5 +1,5 @@
 #! /bin/bash
-#SBATCH -J srad_v2-rodinia-2.0-ft-__data_matrix128x128_txt_0_127_0_127__5_2___data_result_matrix128x128_1_150_1_100__5_2_txt.gpgpu-sim_git-commit-61396d8_modified_2.0
+#SBATCH -J srad_v2-rodinia-2.0-ft-__data_matrix128x128_txt_0_127_0_127__5_2___data_result_matrix128x128_1_150_1_100__5_2_txt.gpgpu-sim_git-commit-090349f_modified_2.0
 #SBATCH --threads-per-core=1
 #SBATCH --cpus-per-task=1
 #SBATCH --nodes=1
@@ -8,12 +8,12 @@
 #SBATCH -p batch
 #SBATCH --mail-type=END,FAIL
 #SBATCH --export=ALL
-#SBATCH --output=/tmp/srad_v2-rodinia-2.0-ft-__data_matrix128x128_txt_0_127_0_127__5_2___data_result_matrix128x128_1_150_1_100__5_2_txt.gpgpu-sim_git-commit-61396d8_modified_2.0.o%j
-#SBATCH --error=/tmp/srad_v2-rodinia-2.0-ft-__data_matrix128x128_txt_0_127_0_127__5_2___data_result_matrix128x128_1_150_1_100__5_2_txt.gpgpu-sim_git-commit-61396d8_modified_2.0.e%j
+#SBATCH --output=/tmp/srad_v2-rodinia-2.0-ft-__data_matrix128x128_txt_0_127_0_127__5_2___data_result_matrix128x128_1_150_1_100__5_2_txt.gpgpu-sim_git-commit-090349f_modified_2.0.o%j
+#SBATCH --error=/tmp/srad_v2-rodinia-2.0-ft-__data_matrix128x128_txt_0_127_0_127__5_2___data_result_matrix128x128_1_150_1_100__5_2_txt.gpgpu-sim_git-commit-090349f_modified_2.0.e%j
 
 copy_output() {
-    mv /tmp/srad_v2-rodinia-2.0-ft-__data_matrix128x128_txt_0_127_0_127__5_2___data_result_matrix128x128_1_150_1_100__5_2_txt.gpgpu-sim_git-commit-61396d8_modified_2.0.e10 ./srad_v2-rodinia-2.0-ft-__data_matrix128x128_txt_0_127_0_127__5_2___data_result_matrix128x128_1_150_1_100__5_2_txt.gpgpu-sim_git-commit-61396d8_modified_2.0.e10
-    mv /tmp/srad_v2-rodinia-2.0-ft-__data_matrix128x128_txt_0_127_0_127__5_2___data_result_matrix128x128_1_150_1_100__5_2_txt.gpgpu-sim_git-commit-61396d8_modified_2.0.o10 ./srad_v2-rodinia-2.0-ft-__data_matrix128x128_txt_0_127_0_127__5_2___data_result_matrix128x128_1_150_1_100__5_2_txt.gpgpu-sim_git-commit-61396d8_modified_2.0.o10
+    mv /tmp/srad_v2-rodinia-2.0-ft-__data_matrix128x128_txt_0_127_0_127__5_2___data_result_matrix128x128_1_150_1_100__5_2_txt.gpgpu-sim_git-commit-090349f_modified_2.0.e98 ./srad_v2-rodinia-2.0-ft-__data_matrix128x128_txt_0_127_0_127__5_2___data_result_matrix128x128_1_150_1_100__5_2_txt.gpgpu-sim_git-commit-090349f_modified_2.0.e98
+    mv /tmp/srad_v2-rodinia-2.0-ft-__data_matrix128x128_txt_0_127_0_127__5_2___data_result_matrix128x128_1_150_1_100__5_2_txt.gpgpu-sim_git-commit-090349f_modified_2.0.o98 ./srad_v2-rodinia-2.0-ft-__data_matrix128x128_txt_0_127_0_127__5_2___data_result_matrix128x128_1_150_1_100__5_2_txt.gpgpu-sim_git-commit-090349f_modified_2.0.o98
 }
 
 trap copy_output ERR
@@ -29,8 +29,8 @@ fi
 
 echo "doing: export -n PTX_SIM_USE_PTX_FILE"
 export -n PTX_SIM_USE_PTX_FILE
-echo "doing: export LD_LIBRARY_PATH=/home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/gpgpu-sim-builds/gpgpu-sim_git-commit-61396d8_modified_2.0:$LD_LIBRARY_PATH"
-export LD_LIBRARY_PATH=/home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/gpgpu-sim-builds/gpgpu-sim_git-commit-61396d8_modified_2.0:$LD_LIBRARY_PATH
+echo "doing: export LD_LIBRARY_PATH=/home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/gpgpu-sim-builds/gpgpu-sim_git-commit-090349f_modified_2.0:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH=/home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/gpgpu-sim-builds/gpgpu-sim_git-commit-090349f_modified_2.0:$LD_LIBRARY_PATH
 echo "doing: cd /home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/srad_v2-rodinia-2.0-ft/__data_matrix128x128_txt_0_127_0_127__5_2___data_result_matrix128x128_1_150_1_100__5_2_txt/ORIN-PTX"
 cd /home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/srad_v2-rodinia-2.0-ft/__data_matrix128x128_txt_0_127_0_127__5_2___data_result_matrix128x128_1_150_1_100__5_2_txt/ORIN-PTX
 echo "doing: export OPENCL_CURRENT_TEST_PATH=/home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/srad_v2-rodinia-2.0-ft/__data_matrix128x128_txt_0_127_0_127__5_2___data_result_matrix128x128_1_150_1_100__5_2_txt/ORIN-PTX"

@@ -37,9 +37,9 @@ ld.global.u8 %rs7, [%rd5+7];
 ld.global.u8 %rs8, [%rd5+9];
 setp.eq.s16%p2, %rs1, 32;
 mov.f32 %f33, 0f00000000;
-@%p2 bra BB_1;
+@%p2 bra BBtaken_1;
 
-BB_1:
+BBtaken_1:
 setp.eq.s16%p3, %rs2, 32;
 @%p3 bra BB_2;
 

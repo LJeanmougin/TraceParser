@@ -24,9 +24,9 @@ mov.u32 %r13, _ZZ13lud_perimeterPfiiE8peri_col;
 add.s32 %r5, %r11, %r13;
 mov.u32 %r14, _ZZ13lud_perimeterPfiiE8peri_row;
 add.s32 %r6, %r14, %r11;
-@%p2 bra BB_0;
+@%p2 bra BBtaken_0;
 
-BB_0:
+BBtaken_0:
 mad.lo.s32 %r23, %r9, %r8, %r9;
 add.s32 %r24, %r23, %r1;
 mul.wide.s32 %rd30, %r24, 4;
@@ -151,12 +151,12 @@ mul.wide.u32 %rd70, %r56, 4;
 add.s64 %rd71, %rd1, %rd70;
 ld.global.f32 %f48, [%rd71];
 st.shared.f32 [%r6+960], %f48;
-bra.uni BB_1;
+bra.uni BBtaken_1;
 
-BB_1:
-bra.uni BB_2;
+BBtaken_1:
+bra.uni BBtaken_2;
 
-BB_2:
+BBtaken_2:
 add.s32 %r16, %r9, 8;
 mad.lo.s32 %r17, %r16, %r8, %r9;
 add.s32 %r18, %r17, %r4;
@@ -242,9 +242,9 @@ st.shared.f32 [%r5+896], %f24;
 bar.sync 0;
 mov.u32 %r84, %tid.x;
 setp.lt.u32%p3, %r84, 16;
-@%p3 bra BB_3;
+@%p3 bra BBtaken_3;
 
-BB_3:
+BBtaken_3:
 mov.u32 %r104, %tid.x;
 shl.b32 %r103, %r104, 2;
 mov.u32 %r102, _ZZ13lud_perimeterPfiiE8peri_row;
@@ -710,12 +710,12 @@ add.s32 %r83, %r82, %r98;
 mul.wide.u32 %rd118, %r83, 4;
 add.s64 %rd119, %rd122, %rd118;
 st.global.f32 [%rd119], %f848;
-bra.uni BB_4;
+bra.uni BBtaken_4;
 
-BB_4:
-bra.uni BB_5;
+BBtaken_4:
+bra.uni BBtaken_5;
 
-BB_5:
+BBtaken_5:
 mov.u32 %r87, _ZZ13lud_perimeterPfiiE8peri_col;
 mov.u32 %r86, %tid.x;
 add.s32 %r85, %r86, -16;

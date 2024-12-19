@@ -1,5 +1,5 @@
 #! /bin/bash
-#SBATCH -J nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_2.0
+#SBATCH -J nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-090349f_modified_2.0
 #SBATCH --threads-per-core=1
 #SBATCH --cpus-per-task=1
 #SBATCH --nodes=1
@@ -8,12 +8,12 @@
 #SBATCH -p batch
 #SBATCH --mail-type=END,FAIL
 #SBATCH --export=ALL
-#SBATCH --output=/tmp/nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_2.0.o%j
-#SBATCH --error=/tmp/nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_2.0.e%j
+#SBATCH --output=/tmp/nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-090349f_modified_2.0.o%j
+#SBATCH --error=/tmp/nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-090349f_modified_2.0.e%j
 
 copy_output() {
-    mv /tmp/nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_2.0.e8 ./nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_2.0.e8
-    mv /tmp/nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_2.0.o8 ./nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-61396d8_modified_2.0.o8
+    mv /tmp/nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-090349f_modified_2.0.e96 ./nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-090349f_modified_2.0.e96
+    mv /tmp/nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-090349f_modified_2.0.o96 ./nn-rodinia-2.0-ft-__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt.gpgpu-sim_git-commit-090349f_modified_2.0.o96
 }
 
 trap copy_output ERR
@@ -29,8 +29,8 @@ fi
 
 echo "doing: export -n PTX_SIM_USE_PTX_FILE"
 export -n PTX_SIM_USE_PTX_FILE
-echo "doing: export LD_LIBRARY_PATH=/home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/gpgpu-sim-builds/gpgpu-sim_git-commit-61396d8_modified_2.0:$LD_LIBRARY_PATH"
-export LD_LIBRARY_PATH=/home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/gpgpu-sim-builds/gpgpu-sim_git-commit-61396d8_modified_2.0:$LD_LIBRARY_PATH
+echo "doing: export LD_LIBRARY_PATH=/home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/gpgpu-sim-builds/gpgpu-sim_git-commit-090349f_modified_2.0:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH=/home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/gpgpu-sim-builds/gpgpu-sim_git-commit-090349f_modified_2.0:$LD_LIBRARY_PATH
 echo "doing: cd /home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/nn-rodinia-2.0-ft/__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt/ORIN-PTX"
 cd /home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/nn-rodinia-2.0-ft/__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt/ORIN-PTX
 echo "doing: export OPENCL_CURRENT_TEST_PATH=/home/runner/accel-sim/accel-sim-framework/util/job_launching/../../sim_run_11.0/nn-rodinia-2.0-ft/__data_filelist_4_3_30_90___data_filelist_4_3_30_90_result_txt/ORIN-PTX"

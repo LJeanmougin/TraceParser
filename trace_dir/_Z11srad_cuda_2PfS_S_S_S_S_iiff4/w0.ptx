@@ -99,18 +99,18 @@ add.s32 %r81, %r34, 1020;
 @%p5 bra BB_2;
 
 BB_2:
-@%p3 bra BB_3;
+@%p3 bra BBtaken_3;
 
-BB_3:
+BBtaken_3:
 add.s32 %r73, %r29, %r51;
 add.s32 %r81, %r73, 124;
 add.s32 %r82, %r43, 60;
-bra.uni BB_4;
+bra.uni BBtaken_4;
 
-BB_4:
-bra.uni BB_5;
+BBtaken_4:
+bra.uni BBtaken_5;
 
-BB_5:
+BBtaken_5:
 @%p4 bra BB_6;
 
 BB_6:

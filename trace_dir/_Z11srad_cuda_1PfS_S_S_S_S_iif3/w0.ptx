@@ -49,9 +49,9 @@ add.s32 %r55, %r54, %r50;
 add.s32 %r12, %r55, %r53;
 st.shared.f32 [%r12], %f9;
 setp.eq.s32%p1, %r1, 0;
-@%p1 bra BB_0;
+@%p1 bra BBtaken_0;
 
-BB_0:
+BBtaken_0:
 add.s32 %r60, %r9, %r4;
 mul.wide.s32 %rd19, %r60, 4;
 add.s64 %rd20, %rd1, %rd19;
@@ -72,9 +72,9 @@ add.s32 %r67, %r66, %r50;
 add.s32 %r14, %r67, %r53;
 st.shared.f32 [%r14], %f13;
 setp.eq.s32%p3, %r3, 0;
-@%p3 bra BB_1;
+@%p3 bra BBtaken_1;
 
-BB_1:
+BBtaken_1:
 add.s32 %r73, %r7, %r2;
 mul.wide.s32 %rd25, %r73, 4;
 add.s64 %rd26, %rd1, %rd25;
@@ -92,9 +92,9 @@ bar.sync 0;
 ld.shared.f32 %f1, [%r16];
 or.b32 %r78, %r6, %r9;
 setp.eq.s32%p5, %r78, 0;
-@%p5 bra BB_2;
+@%p5 bra BBtaken_2;
 
-BB_2:
+BBtaken_2:
 add.s32 %r156, %r16, 64;
 add.s32 %r155, %r16, 4;
 setp.eq.s32%p6, %r6, 0;
@@ -125,17 +125,17 @@ add.s32 %r153, %r75, 896;
 @%p14 bra BB_5;
 
 BB_5:
-@%p6 bra BB_6;
+@%p6 bra BBtaken_6;
 
-BB_6:
+BBtaken_6:
 add.s32 %r153, %r51, %r53;
 add.s32 %r135, %r53, %r75;
 add.s32 %r156, %r135, 64;
 add.s32 %r154, %r135, -4;
 add.s32 %r155, %r135, 4;
-bra.uni BB_7;
+bra.uni BBtaken_7;
 
-BB_7:
+BBtaken_7:
 ld.shared.f32 %f17, [%r156];
 sub.f32 %f2, %f17, %f1;
 ld.shared.f32 %f18, [%r155];
@@ -184,17 +184,17 @@ bra.uni BB_9;
 
 BB_9:
 setp.gt.f32%p20, %f6, 0f3F800000;
-@%p20 bra BB_10;
+@%p20 bra BBtaken_10;
 
-BB_10:
+BBtaken_10:
 mov.u32 %r145, 1065353216;
 st.shared.u32 [%r43], %r145;
-bra.uni BB_11;
+bra.uni BBtaken_11;
 
-BB_11:
-bra.uni BB_12;
+BBtaken_11:
+bra.uni BBtaken_12;
 
-BB_12:
+BBtaken_12:
 st.shared.f32 [%r43], %f6;
 cvta.to.global.u64 %rd2, %rd9;
 cvta.to.global.u64 %rd3, %rd10;

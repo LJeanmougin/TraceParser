@@ -2896,4 +2896,4 @@ warp 0 :  PC=0x9438 (lud-rodinia-2.8.sm_75.ptx:269) mul.wide.u32 %rd63, %r86, 4;
 warp 0 :  PC=0x9440 (lud-rodinia-2.8.sm_75.ptx:270) add.s64 %rd64, %rd1, %rd63;
 warp 0 :  PC=0x9448 (lud-rodinia-2.8.sm_75.ptx:271) st.global.f32 [%rd64], %f46;
 warp 0 :  PC=0x9450 (lud-rodinia-2.8.sm_75.ptx:272) ret;
-kernel_execution_time : 19714
+kernel_execution_time : 19724

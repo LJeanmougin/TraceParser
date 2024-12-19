@@ -26,8 +26,8 @@ cvt.s64.s32%rd7, %r1;
 add.s64 %rd1, %rd6, %rd7;
 ld.global.u8 %rs1, [%rd1];
 setp.eq.s16%p2, %rs1, 0;
-@%p2 bra BB_1;
+@%p2 bra BBtaken_1;
 
-BB_1:
+BBtaken_1:
 ret;
 }

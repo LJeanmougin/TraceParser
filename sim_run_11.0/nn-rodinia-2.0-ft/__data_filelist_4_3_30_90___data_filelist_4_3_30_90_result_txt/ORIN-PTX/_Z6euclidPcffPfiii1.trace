@@ -83,4 +83,4 @@ warp 0 :  PC=0xb00 (nn-rodinia-2.4.sm_75.ptx:136) mul.wide.s32 %rd7, %r1, 4;
 warp 0 :  PC=0xb08 (nn-rodinia-2.4.sm_75.ptx:137) add.s64 %rd8, %rd6, %rd7;
 warp 0 :  PC=0xb10 (nn-rodinia-2.4.sm_75.ptx:138) st.global.f32 [%rd8], %f31;
 warp 0 :  PC=0xb18 (nn-rodinia-2.4.sm_75.ptx:141) ret;
-kernel_execution_time : 450
+kernel_execution_time : 624

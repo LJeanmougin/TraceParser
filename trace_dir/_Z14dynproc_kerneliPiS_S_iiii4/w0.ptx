@@ -122,9 +122,9 @@ st.shared.u32 [%r106], %r104;
 add.s32 %r120, %r120, 1;
 add.s32 %r119, %r119, %r12;
 setp.lt.s32%p17, %r121, %r11;
-@%p17 bra BB_7;
+@%p17 bra BBtaken_7;
 
-BB_7:
+BBtaken_7:
 mov.u32 %r52, 254;
 sub.s32 %r53, %r52, %r121;
 setp.le.s32%p5, %r22, %r53;
@@ -187,9 +187,9 @@ st.shared.u32 [%r106], %r104;
 add.s32 %r120, %r120, 1;
 add.s32 %r119, %r119, %r12;
 setp.lt.s32%p17, %r121, %r11;
-@%p17 bra BB_12;
+@%p17 bra BBtaken_12;
 
-BB_12:
+BBtaken_12:
 mov.u32 %r52, 254;
 sub.s32 %r53, %r52, %r121;
 setp.le.s32%p5, %r22, %r53;
@@ -252,9 +252,9 @@ st.shared.u32 [%r106], %r104;
 add.s32 %r120, %r120, 1;
 add.s32 %r119, %r119, %r12;
 setp.lt.s32%p17, %r121, %r11;
-@%p17 bra BB_17;
+@%p17 bra BBtaken_17;
 
-BB_17:
+BBtaken_17:
 mov.u32 %r52, 254;
 sub.s32 %r53, %r52, %r121;
 setp.le.s32%p5, %r22, %r53;
@@ -301,9 +301,9 @@ st.shared.u32 [%r99], %r97;
 mov.u16 %rs8, 1;
 bar.sync 0;
 setp.eq.s32%p15, %r120, 0;
-@%p15 bra BB_20;
+@%p15 bra BBtaken_20;
 
-BB_20:
+BBtaken_20:
 and.b16 %rs6, %rs8, 255;
 setp.eq.s16%p18, %rs6, 0;
 @%p18 bra BB_21;

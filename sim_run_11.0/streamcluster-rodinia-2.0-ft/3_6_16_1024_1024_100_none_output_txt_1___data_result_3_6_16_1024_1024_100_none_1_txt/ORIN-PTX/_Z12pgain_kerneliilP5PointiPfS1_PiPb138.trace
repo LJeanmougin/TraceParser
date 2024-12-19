@@ -276,4 +276,4 @@ warp 0 :  PC=0x1cc0 (streamcluster-rodinia-2.4.sm_75.ptx:300) sub.f32 %f51, %f58
 warp 0 :  PC=0x1cc8 (streamcluster-rodinia-2.4.sm_75.ptx:301) add.f32 %f52, %f50, %f51;
 warp 0 :  PC=0x1cd0 (streamcluster-rodinia-2.4.sm_75.ptx:302) st.global.f32 [%rd60], %f52;
 warp 0 :  PC=0x1cd8 (streamcluster-rodinia-2.4.sm_75.ptx:303) ret;
-kernel_execution_time : 1468
+kernel_execution_time : 1572

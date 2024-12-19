@@ -54,9 +54,9 @@ add.s32 %r8, %r39, %r40;
 mov.u32 %r41, _ZZ14calculate_tempiPfS_iiiiffffffE13power_on_cuda;
 add.s32 %r42, %r41, %r37;
 add.s32 %r9, %r42, %r40;
-@%p9 bra BB_0;
+@%p9 bra BBtaken_0;
 
-BB_0:
+BBtaken_0:
 bar.sync 0;
 mov.u32 %r43, -15;
 sub.s32 %r44, %r43, %r1;
@@ -138,24 +138,24 @@ setp.lt.s32%p23, %r3, %r84;
 or.pred %p24, %p23, %p22;
 or.pred %p25, %p24, %p1;
 or.pred %p26, %p25, %p2;
-@%p26 bra BB_4;
+@%p26 bra BBtaken_4;
 
-BB_4:
+BBtaken_4:
 bar.sync 0;
 setp.eq.s32%p27, %r83, 0;
 @%p27 bra BB_5;
 
 BB_5:
 setp.eq.s16%p28, %rs9, 0;
-@%p28 bra BB_6;
+@%p28 bra BBtaken_6;
 
-BB_6:
+BBtaken_6:
 bar.sync 0;
 add.s32 %r83, %r83, 1;
 setp.lt.s32%p29, %r84, %r23;
-@%p29 bra BB_7;
+@%p29 bra BBtaken_7;
 
-BB_7:
+BBtaken_7:
 mov.u32 %r82, 14;
 sub.s32 %r20, %r82, %r84;
 setp.le.s32%p19, %r4, %r20;
@@ -174,24 +174,24 @@ setp.lt.s32%p23, %r3, %r84;
 or.pred %p24, %p23, %p22;
 or.pred %p25, %p24, %p1;
 or.pred %p26, %p25, %p2;
-@%p26 bra BB_10;
+@%p26 bra BBtaken_10;
 
-BB_10:
+BBtaken_10:
 bar.sync 0;
 setp.eq.s32%p27, %r83, 0;
 @%p27 bra BB_11;
 
 BB_11:
 setp.eq.s16%p28, %rs9, 0;
-@%p28 bra BB_12;
+@%p28 bra BBtaken_12;
 
-BB_12:
+BBtaken_12:
 bar.sync 0;
 add.s32 %r83, %r83, 1;
 setp.lt.s32%p29, %r84, %r23;
-@%p29 bra BB_13;
+@%p29 bra BBtaken_13;
 
-BB_13:
+BBtaken_13:
 mov.u32 %r82, 14;
 sub.s32 %r20, %r82, %r84;
 setp.le.s32%p19, %r4, %r20;
@@ -210,24 +210,24 @@ setp.lt.s32%p23, %r3, %r84;
 or.pred %p24, %p23, %p22;
 or.pred %p25, %p24, %p1;
 or.pred %p26, %p25, %p2;
-@%p26 bra BB_16;
+@%p26 bra BBtaken_16;
 
-BB_16:
+BBtaken_16:
 bar.sync 0;
 setp.eq.s32%p27, %r83, 0;
 @%p27 bra BB_17;
 
 BB_17:
 setp.eq.s16%p28, %rs9, 0;
-@%p28 bra BB_18;
+@%p28 bra BBtaken_18;
 
-BB_18:
+BBtaken_18:
 bar.sync 0;
 add.s32 %r83, %r83, 1;
 setp.lt.s32%p29, %r84, %r23;
-@%p29 bra BB_19;
+@%p29 bra BBtaken_19;
 
-BB_19:
+BBtaken_19:
 mov.u32 %r82, 14;
 sub.s32 %r20, %r82, %r84;
 setp.le.s32%p19, %r4, %r20;
@@ -246,24 +246,24 @@ setp.lt.s32%p23, %r3, %r84;
 or.pred %p24, %p23, %p22;
 or.pred %p25, %p24, %p1;
 or.pred %p26, %p25, %p2;
-@%p26 bra BB_22;
+@%p26 bra BBtaken_22;
 
-BB_22:
+BBtaken_22:
 bar.sync 0;
 setp.eq.s32%p27, %r83, 0;
 @%p27 bra BB_23;
 
 BB_23:
 setp.eq.s16%p28, %rs9, 0;
-@%p28 bra BB_24;
+@%p28 bra BBtaken_24;
 
-BB_24:
+BBtaken_24:
 bar.sync 0;
 add.s32 %r83, %r83, 1;
 setp.lt.s32%p29, %r84, %r23;
-@%p29 bra BB_25;
+@%p29 bra BBtaken_25;
 
-BB_25:
+BBtaken_25:
 mov.u32 %r82, 14;
 sub.s32 %r20, %r82, %r84;
 setp.le.s32%p19, %r4, %r20;
@@ -282,24 +282,24 @@ setp.lt.s32%p23, %r3, %r84;
 or.pred %p24, %p23, %p22;
 or.pred %p25, %p24, %p1;
 or.pred %p26, %p25, %p2;
-@%p26 bra BB_28;
+@%p26 bra BBtaken_28;
 
-BB_28:
+BBtaken_28:
 bar.sync 0;
 setp.eq.s32%p27, %r83, 0;
 @%p27 bra BB_29;
 
 BB_29:
 setp.eq.s16%p28, %rs9, 0;
-@%p28 bra BB_30;
+@%p28 bra BBtaken_30;
 
-BB_30:
+BBtaken_30:
 bar.sync 0;
 add.s32 %r83, %r83, 1;
 setp.lt.s32%p29, %r84, %r23;
-@%p29 bra BB_31;
+@%p29 bra BBtaken_31;
 
-BB_31:
+BBtaken_31:
 mov.u32 %r82, 14;
 sub.s32 %r20, %r82, %r84;
 setp.le.s32%p19, %r4, %r20;
@@ -318,18 +318,18 @@ setp.lt.s32%p23, %r3, %r84;
 or.pred %p24, %p23, %p22;
 or.pred %p25, %p24, %p1;
 or.pred %p26, %p25, %p2;
-@%p26 bra BB_34;
+@%p26 bra BBtaken_34;
 
-BB_34:
+BBtaken_34:
 bar.sync 0;
 setp.eq.s32%p27, %r83, 0;
-@%p27 bra BB_35;
+@%p27 bra BBtaken_35;
 
-BB_35:
+BBtaken_35:
 and.b16 %rs7, %rs9, 255;
 setp.eq.s16%p30, %rs7, 0;
-@%p30 bra BB_36;
+@%p30 bra BBtaken_36;
 
-BB_36:
+BBtaken_36:
 ret;
 }

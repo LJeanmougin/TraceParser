@@ -178,4 +178,4 @@ warp 0 :  PC=0x28d8 (srad_v2-rodinia-2.4.sm_75.ptx:292) st.global.f32 [%rd33], %
 warp 0 :  PC=0x28e0 (srad_v2-rodinia-2.4.sm_75.ptx:293) add.s64 %rd34, %rd2, %rd27;
 warp 0 :  PC=0x28e8 (srad_v2-rodinia-2.4.sm_75.ptx:294) st.global.f32 [%rd34], %f5;
 warp 0 :  PC=0x28f0 (srad_v2-rodinia-2.4.sm_75.ptx:295) ret;
-kernel_execution_time : 1241
+kernel_execution_time : 1239

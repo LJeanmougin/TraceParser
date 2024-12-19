@@ -147,4 +147,4 @@ warp 0 :  PC=0x1178 (backprop-rodinia-2.4.sm_75.ptx:127) mul.wide.s32 %rd11, %r3
 warp 0 :  PC=0x1180 (backprop-rodinia-2.4.sm_75.ptx:128) add.s64 %rd12, %rd10, %rd11;
 warp 0 :  PC=0x1188 (backprop-rodinia-2.4.sm_75.ptx:129) st.global.f32 [%rd12], %f19;
 warp 0 :  PC=0x1190 (backprop-rodinia-2.4.sm_75.ptx:132) ret;
-kernel_execution_time : 1037
+kernel_execution_time : 1035

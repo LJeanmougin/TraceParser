@@ -74,9 +74,9 @@ add.s64 %rd31, %rd31, 4;
 add.s32 %r19, %r23, %r24;
 add.s32 %r22, %r22, 1;
 setp.lt.s32%p5, %r22, %r19;
-@%p5 bra BB_4;
+@%p5 bra BBtaken_4;
 
-BB_4:
+BBtaken_4:
 ld.global.u32 %r7, [%rd31];
 cvt.s64.s32%rd23, %r7;
 add.s64 %rd24, %rd22, %rd23;
@@ -99,9 +99,9 @@ add.s64 %rd31, %rd31, 4;
 add.s32 %r19, %r23, %r24;
 add.s32 %r22, %r22, 1;
 setp.lt.s32%p5, %r22, %r19;
-@%p5 bra BB_6;
+@%p5 bra BBtaken_6;
 
-BB_6:
+BBtaken_6:
 ld.global.u32 %r7, [%rd31];
 cvt.s64.s32%rd23, %r7;
 add.s64 %rd24, %rd22, %rd23;
@@ -124,9 +124,9 @@ add.s64 %rd31, %rd31, 4;
 add.s32 %r19, %r23, %r24;
 add.s32 %r22, %r22, 1;
 setp.lt.s32%p5, %r22, %r19;
-@%p5 bra BB_8;
+@%p5 bra BBtaken_8;
 
-BB_8:
+BBtaken_8:
 ld.global.u32 %r7, [%rd31];
 cvt.s64.s32%rd23, %r7;
 add.s64 %rd24, %rd22, %rd23;
@@ -149,9 +149,9 @@ add.s64 %rd31, %rd31, 4;
 add.s32 %r19, %r23, %r24;
 add.s32 %r22, %r22, 1;
 setp.lt.s32%p5, %r22, %r19;
-@%p5 bra BB_10;
+@%p5 bra BBtaken_10;
 
-BB_10:
+BBtaken_10:
 ld.global.u32 %r7, [%rd31];
 cvt.s64.s32%rd23, %r7;
 add.s64 %rd24, %rd22, %rd23;
@@ -174,9 +174,9 @@ add.s64 %rd31, %rd31, 4;
 add.s32 %r19, %r23, %r24;
 add.s32 %r22, %r22, 1;
 setp.lt.s32%p5, %r22, %r19;
-@%p5 bra BB_12;
+@%p5 bra BBtaken_12;
 
-BB_12:
+BBtaken_12:
 ld.global.u32 %r7, [%rd31];
 cvt.s64.s32%rd23, %r7;
 add.s64 %rd24, %rd22, %rd23;
@@ -199,9 +199,9 @@ add.s64 %rd31, %rd31, 4;
 add.s32 %r19, %r23, %r24;
 add.s32 %r22, %r22, 1;
 setp.lt.s32%p5, %r22, %r19;
-@%p5 bra BB_14;
+@%p5 bra BBtaken_14;
 
-BB_14:
+BBtaken_14:
 ld.global.u32 %r7, [%rd31];
 cvt.s64.s32%rd23, %r7;
 add.s64 %rd24, %rd22, %rd23;
@@ -224,9 +224,9 @@ add.s64 %rd31, %rd31, 4;
 add.s32 %r19, %r23, %r24;
 add.s32 %r22, %r22, 1;
 setp.lt.s32%p5, %r22, %r19;
-@%p5 bra BB_16;
+@%p5 bra BBtaken_16;
 
-BB_16:
+BBtaken_16:
 ld.global.u32 %r7, [%rd31];
 cvt.s64.s32%rd23, %r7;
 add.s64 %rd24, %rd22, %rd23;
@@ -249,9 +249,9 @@ add.s64 %rd31, %rd31, 4;
 add.s32 %r19, %r23, %r24;
 add.s32 %r22, %r22, 1;
 setp.lt.s32%p5, %r22, %r19;
-@%p5 bra BB_18;
+@%p5 bra BBtaken_18;
 
-BB_18:
+BBtaken_18:
 ld.global.u32 %r7, [%rd31];
 cvt.s64.s32%rd23, %r7;
 add.s64 %rd24, %rd22, %rd23;
@@ -274,9 +274,9 @@ add.s64 %rd31, %rd31, 4;
 add.s32 %r19, %r23, %r24;
 add.s32 %r22, %r22, 1;
 setp.lt.s32%p5, %r22, %r19;
-@%p5 bra BB_20;
+@%p5 bra BBtaken_20;
 
-BB_20:
+BBtaken_20:
 ld.global.u32 %r7, [%rd31];
 cvt.s64.s32%rd23, %r7;
 add.s64 %rd24, %rd22, %rd23;

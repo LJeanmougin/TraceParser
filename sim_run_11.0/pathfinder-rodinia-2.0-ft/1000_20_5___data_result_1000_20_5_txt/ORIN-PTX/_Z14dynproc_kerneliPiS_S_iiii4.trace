@@ -264,4 +264,4 @@ warp 0 :  PC=0xe00 (pathfinder-rodinia-2.4.sm_75.ptx:164) mul.wide.s32 %rd11, %r
 warp 0 :  PC=0xe08 (pathfinder-rodinia-2.4.sm_75.ptx:165) add.s64 %rd12, %rd10, %rd11;
 warp 0 :  PC=0xe10 (pathfinder-rodinia-2.4.sm_75.ptx:166) st.global.u32 [%rd12], %r111;
 warp 0 :  PC=0xe18 (pathfinder-rodinia-2.4.sm_75.ptx:169) ret;
-kernel_execution_time : 1367
+kernel_execution_time : 1357

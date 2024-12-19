@@ -16,4 +16,4 @@ warp 0 :  PC=0xaa8 (bfs-rodinia-2.4.sm_75.ptx:133) ld.global.u8 %rs1, [%rd1];
 warp 0 :  PC=0xab0 (bfs-rodinia-2.4.sm_75.ptx:134) setp.eq.s16%p2, %rs1, 0;
 warp 0 :  PC=0xab8 (bfs-rodinia-2.4.sm_75.ptx:135) @%p2 bra BB1_3;
 warp 0 :  PC=0xb18 (bfs-rodinia-2.4.sm_75.ptx:150) ret;
-kernel_execution_time : 67
+kernel_execution_time : 65

@@ -129,4 +129,4 @@ warp 0 :  PC=0x2de0 (srad_v2-rodinia-2.4.sm_75.ptx:521) bar.sync 0;
 warp 0 :  PC=0x2de8 (srad_v2-rodinia-2.4.sm_75.ptx:522) ld.shared.f32 %f21, [%r24];
 warp 0 :  PC=0x2df0 (srad_v2-rodinia-2.4.sm_75.ptx:523) st.global.f32 [%rd1], %f21;
 warp 0 :  PC=0x2df8 (srad_v2-rodinia-2.4.sm_75.ptx:524) ret;
-kernel_execution_time : 778
+kernel_execution_time : 787
