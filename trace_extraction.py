@@ -8,7 +8,7 @@ extract_instr_addr = "(?<=0x)[a-f0-9]+"
 extract_exec_time = "(?<=kernel_execution_time : ).*"
 extract_trace_name = "[_a-zA-Z0-9]*"
 find_bra_target = "BB[a-zA-Z_0-9]*"
-extract_bra_prefix = "[@%p0-9]* bra[.a-zA-Z0-9]* "
+extract_bra_prefix = "[@%p0-9]* bra[\.a-zA-Z0-9]* "
 
 ptx_header=".version 7.0\n" \
 ".target sm_75\n" \
@@ -80,7 +80,6 @@ def extract_traces(traces_dir : str, target_dir_name : str):
                                 exec_time_file.close()
                         except:
                             pass
-                last_addr = instructions[0].address
                 for i in range(len(instructions)):
                     try:
                         instruction = instructions[i]
@@ -100,6 +99,8 @@ def extract_traces(traces_dir : str, target_dir_name : str):
                                 ptx_instr = branch_inst + "BB" + hint + "_" + str(branch_uid) + ";"
                         except :
                             if "bra.uni" in ptx_instr:
+                                taken = instruction.address + 8 != instructions[i+1].address
+                                hint = "taken" if taken else ""
                                 branch_inst = "bra.uni BB" + hint + "_" + str(branch_uid) + ";"
                                 ptx_instr = branch_inst 
                             else:
