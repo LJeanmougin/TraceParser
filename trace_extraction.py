@@ -93,6 +93,8 @@ def extract_traces(traces_dir : str, target_dir_name : str):
                             branch_inst = re.search(extract_bra_prefix, ptx_instr).group(0)
                             taken = instruction.address + 8 != instructions[i+1].address
                             hint = "taken" if taken else ""
+                            if abs(instruction.address - instructions[i+1].address) >= 512:
+                                hint += "far"
                             if not '@' in branch_inst:
                                 ptx_instr = "@" + branch_inst + "BB" + hint + "_" + str(branch_uid) + ";"
                             else:
@@ -101,6 +103,8 @@ def extract_traces(traces_dir : str, target_dir_name : str):
                             if "bra.uni" in ptx_instr:
                                 taken = instruction.address + 8 != instructions[i+1].address
                                 hint = "taken" if taken else ""
+                                if abs(instruction.address - instructions[i+1].address) >= 512:
+                                    hint += "far"
                                 branch_inst = "bra.uni BB" + hint + "_" + str(branch_uid) + ";"
                                 ptx_instr = branch_inst 
                             else:
