@@ -59,6 +59,7 @@ def extract_traces(traces_dir : str, target_dir_name : str):
                     os.makedirs(res_dir)
                     print(f"Directory \"{res_dir}\" created..")
                 except FileExistsError:
+                    print(f"Current file is {file.__str__()} but :")
                     print(f"Directory \"{res_dir}\" already exists..")
                 except PermissionError:
                     print(f"Permission denied to create \"{res_dir}\"")
