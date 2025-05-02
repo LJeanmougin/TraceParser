@@ -1,0 +1,2 @@
+python3 trace_extraction.py ../sim_rodinia-3.1_1b_5l ./traces/ecrts_1b_5l_lrr
+python3 ../sass-decompiler/src/ptx_experiments.py ./configs/SM86_ORIN_5l_lrr/gpgpusim.config ./traces/ecrts_1b_5l_lrr /dev/null

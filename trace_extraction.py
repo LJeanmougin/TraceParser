@@ -50,7 +50,7 @@ class Instruction():
     
 
 def extract_traces(traces_dir : str, target_dir_name : str):
-    for root, dir ,files in os.walk(traces_dir):   
+    for root, dir ,files in os.walk(traces_dir):
         for file in files:
             if ".trace" in file:
                 trace_path = os.path.join(root, file)
@@ -59,8 +59,9 @@ def extract_traces(traces_dir : str, target_dir_name : str):
                     os.makedirs(res_dir)
                     print(f"Directory \"{res_dir}\" created..")
                 except FileExistsError:
-                    print(f"Current file is {file.__str__()} but :")
-                    print(f"Directory \"{res_dir}\" already exists..")
+                    pass
+                    # print(f"Current file is {file.__str__()} but :")
+                    # print(f"Directory \"{res_dir}\" already exists..")
                 except PermissionError:
                     print(f"Permission denied to create \"{res_dir}\"")
                 except Exception as e:
