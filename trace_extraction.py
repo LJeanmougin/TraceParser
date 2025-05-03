@@ -1,6 +1,7 @@
 import os
 import sys
 import re
+from pathlib import Path
 
 extract_warp_idx = "(?<=warp )[0-9]+"
 extract_ptx_instr = "(?<=\) ).*"
@@ -54,7 +55,8 @@ def extract_traces(traces_dir : str, target_dir_name : str):
         for file in files:
             if ".trace" in file:
                 trace_path = os.path.join(root, file)
-                res_dir = target_dir_name + "/" + re.search(extract_trace_name, file).group(0)
+                file_name = re.search(extract_trace_name, file).group(0)
+                res_dir = target_dir_name + "/" + file_name
                 try:
                     os.makedirs(res_dir)
                     print(f"Directory \"{res_dir}\" created..")
