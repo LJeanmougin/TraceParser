@@ -30,9 +30,7 @@ def getPtxFilesPaths(src_dir : str) -> list[str]:
 def makeProgPathDict(ptx_files_paths : list[str]) -> dict[str, list[str]]:
     progPathsDict : dict[str, list[str]] = dict()
     for ptx_file_path in ptx_files_paths:
-        print(ptx_file_path)
         prog_name = re.search(extract_file_name, ptx_file_path).group(0)
-        print(prog_name)
         if not prog_name in progPathsDict:
             progPathsDict[prog_name] = []
         progPathsDict[prog_name].append(ptx_file_path)
@@ -58,21 +56,10 @@ def createPtxProgDirectories(progs : list[str], target_dir_name : str):
 
 def extract_programs(src_dir : str, target_dir_name : str):
     ptx_files : dict[str, list[str]] = dict()
-    try:
-        os.makedirs(target_dir_name)
-    except FileExistsError:
-        print(f"Directory \"{target_dir_name}\" already exists.")
-    except PermissionError:
-        print(f"Permission denied to create \"{target_dir_name}\"")
-    except Exception as e:
-        print(f"Error : {e}")
-    
     ptx_files_paths = getPtxFilesPaths(src_dir)
     progPathsDict = makeProgPathDict(ptx_files_paths)
     progs = list(progPathsDict.keys())
     createPtxProgDirectories(progs, target_dir_name)
-    
-    
     exit(0)
     
     for root, _, files in os.walk(src_dir):
