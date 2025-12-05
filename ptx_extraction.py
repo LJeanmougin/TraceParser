@@ -60,25 +60,12 @@ def extract_programs(src_dir : str, target_dir_name : str):
     progPathsDict = makeProgPathDict(ptx_files_paths)
     progs = list(progPathsDict.keys())
     createPtxProgDirectories(progs, target_dir_name)
-    exit(0)
-    
-    for root, _, files in os.walk(src_dir):
-        for file in files:
-            if (("sm_60.ptx" in file) and
-                (not("sm_60.ptxas" in file))):
-                ptx_file_path = os.path.join(root, file)
-                file_name = re.search(extract_file_name, file).group(0)
-                if not file_name in ptx_files:
-                    print(file_name)
-                    ptx_files[file_name] = []
-                ptx_files[file_name].append(ptx_file_path)
-    for files in ptx_files:
-        for file in ptx_files[files]:
-            ptx_programs = extractPtxPrograms(file)
-            print(len(ptx_programs))
-            for program in ptx_programs:
-                for func_name in findFuncName(ptx_prog=program):
-                    print(func_name)
+    for prog in progs:
+        for path in progPathsDict[prog]:
+            functions = extractPtxPrograms(path)
+            for func in functions:
+                func_name = findFuncName(func)
+                print(func_name)
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
