@@ -69,40 +69,32 @@ def createPtxProgDirectories(progs : list[str], target_dir_name : str):
     for prog in progs:
         prog_dir_name = target_dir_name + "/" + prog
         createDirectory(prog_dir_name)
-            
+         
+def writeFuncFile(path : str, func : str):
+    try:
+        with open(path, "w") as f:
+            f.write(func)
+    except Exception as e:
+        print(e)
+
+def createProgFuncFiles(dir_path : str, func_dict : dict[str, str]):
+    for func_name in func_dict:
+        func_file_path = dir_path + "/" + func_name
+        func_body = func_dict[func_name]
+        writeFuncFile(func_file_path, func_body)
 
 def extract_programs(src_dir : str, target_dir_name : str):
     ptx_files_paths = getPtxFilesPaths(src_dir)
     progPathsDict = makeProgPathDict(ptx_files_paths)
     progs = list(progPathsDict.keys())
     createPtxProgDirectories(progs, target_dir_name)
-    # keep track of extracted functions to avoid duplicates
-    written_func : set[str] = set() 
     for prog in progs:
         for path in progPathsDict[prog]:
             functions = extractPtxFunctions(path)
             func_dict = makePtxFuncDict(functions)
-            func_names = func_dict.keys()
-            for func_name in func_names:
-                if not func_name in written_func:
-                    written_func.add(func_name)
-                    func_file_path = target_dir_name + "/" + prog + "/" + func_name
-                    print(func_file_path)
-                    try:
-                        with open(func_file_path, "w") as f:
-                            f.write(func_dict[func_name])
-                    except Exception as e:
-                        print(e)
-    return
-    for func in functions:
-        func_names = findFuncNames(func)
-        for func_name in func_names:
-            if not func_name in written_func:
-                written_func.add(func_name)
-                func_file_path = path + "/" + func_name
-                with open(func_file_path, "w") as f:
-                    f.write()
-                        
+            dir_path = target_dir_name + "/" + prog
+            createProgFuncFiles(dir_path, func_dict)
+                    
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print(f"Usage : {sys.argv[0]} ptx_dir target_dir")
