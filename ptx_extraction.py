@@ -4,6 +4,10 @@ import shutil
 import re
 
 extract_file_name = r'(?<=PTX\/)[_a-zA-Z0-9\+]+'
+ptx_func_header = ".version 7.0\n"\
+                   ".target sm_75\n"\
+                   ".address_size 64\n"
+
 
 
 def extractPtxFunctions(ptx_file_path) -> list[str]:
@@ -12,6 +16,11 @@ def extractPtxFunctions(ptx_file_path) -> list[str]:
     ptx_pattern = r'\.visible.*?}'
     matches = re.findall(ptx_pattern, file_content, re.DOTALL)
     return matches
+
+def addPtxHeader(ptx_progs : list[str]) -> list[str]:
+    for i in range(len(ptx_progs)):
+        ptx_progs[i] = ptx_func_header + ptx_progs[i]
+    return ptx_progs
 
 def findFuncNames(ptx_prog : str) -> list[str]:
     func_name_pattern = r'(?<=.entry )[a-zA-Z0-9_]*'
@@ -72,7 +81,7 @@ def createPtxProgDirectories(progs : list[str], target_dir_name : str):
          
 def writeFuncFile(path : str, func : str):
     try:
-        with open(path, "w") as f:
+        with open(path + ".ptx", "w") as f:
             f.write(func)
     except Exception as e:
         print(e)
@@ -91,6 +100,7 @@ def extract_programs(src_dir : str, target_dir_name : str):
     for prog in progs:
         for path in progPathsDict[prog]:
             functions = extractPtxFunctions(path)
+            functions = addPtxHeader(functions)
             func_dict = makePtxFuncDict(functions)
             dir_path = target_dir_name + "/" + prog
             createProgFuncFiles(dir_path, func_dict)
