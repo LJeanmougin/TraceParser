@@ -12,6 +12,15 @@ find_bra_target = "BB[a-zA-Z_0-9]*"
 extract_bra_prefix = "[@%p0-9]* bra[\.a-zA-Z0-9]* "
 
 ptx_header=".version 7.0\n" \
+".target sm_75\n" \
+".address_size 64\n" \
+".visible .entry _Z12vecaddKernelPiS_S_i(\n" \
+".param .u64 _Z12vecaddKernelPiS_S_i_param_0,\n" \
+".param .u64 _Z12vecaddKernelPiS_S_i_param_1,\n" \
+".param .u64 _Z12vecaddKernelPiS_S_i_param_2,\n" \
+".param .u32 _Z12vecaddKernelPiS_S_i_param_3\n" \
+")\n" \
+"{\n"
 
 class Instruction():
     def __init__(self, line : str):
