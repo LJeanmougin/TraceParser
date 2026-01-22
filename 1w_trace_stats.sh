@@ -1,0 +1,14 @@
+python3.11 trace_extraction.py ../sim/rodinia_1b_5l ./traces/rodinia_1b_5l
+python3.11 trace_extraction.py ../sim/rodinia_1b_10l ./traces/rodinia_1b_10l
+python3.11 trace_extraction.py ../sim/rodinia_1b_25l ./traces/rodinia_1b_25l
+python3.11 trace_extraction.py ../sim/rodinia_1b_50l ./traces/rodinia_1b_50l
+python3.11 trace_extraction.py ../sim/rodinia_1b_100l ./traces/rodinia_1b_100l
+python3.11 trace_extraction.py ../sim/rodinia_1b_200l ./traces/rodinia_1b_200l
+python3.11 trace_extraction.py ../sim/rodinia_1b_400l ./traces/rodinia_1b_400l
+python3.11 ../sass-decompiler/src/ptx_trace_experiments.py ./configs/SM86_ORIN_5l/gpgpusim.config ./traces/rodinia_1b_5l /dev/null
+python3.11 ../sass-decompiler/src/ptx_trace_experiments.py ./configs/SM86_ORIN_10l/gpgpusim.config ./traces/rodinia_1b_10l /dev/null
+python3.11 ../sass-decompiler/src/ptx_trace_experiments.py ./configs/SM86_ORIN_25l/gpgpusim.config ./traces/rodinia_1b_25l /dev/null
+python3.11 ../sass-decompiler/src/ptx_trace_experiments.py ./configs/SM86_ORIN_50l/gpgpusim.config ./traces/rodinia_1b_50l /dev/null
+python3.11 ../sass-decompiler/src/ptx_trace_experiments.py ./configs/SM86_ORIN_100l/gpgpusim.config ./traces/rodinia_1b_100l /dev/null
+python3.11 ../sass-decompiler/src/ptx_trace_experiments.py ./configs/SM86_ORIN_200l/gpgpusim.config ./traces/rodinia_1b_200l /dev/null
+python3.11 ../sass-decompiler/src/ptx_trace_experiments.py ./configs/SM86_ORIN_400l/gpgpusim.config ./traces/rodinia_1b_400l /dev/null
