@@ -59,5 +59,9 @@ if __name__ == "__main__":
     worst_traces_dir_name = sys.argv[2]
     worst_traces = findWorstInstances(traces_dir_name)
     createTargetDir(worst_traces_dir_name)
-    
+    # create files in the directory :
+    # name = kernel name (key from the dictionnary)
+    # content = the execution time in cycles
+    # NOTE : Maybe "KernelData" should be removed and only the association
+    #        between kernel name and exectime kept
     exit(0)
