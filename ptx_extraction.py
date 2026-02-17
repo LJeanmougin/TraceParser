@@ -1,6 +1,5 @@
 import os
 import sys
-import shutil
 import re
 
 extract_file_name = r'(?<=PTX\/)[_a-zA-Z0-9\+]+'
