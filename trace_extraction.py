@@ -75,10 +75,10 @@ def extract_traces(traces_dir : str, target_dir_name : str):
                         instructions.append(Instruction(line))
                     else:
                         try:
-                                exec_time = re.search(extract_exec_time, line).group(0)
-                                exec_time_file = open(f"{res_dir}/exectime.txt", "w")
-                                exec_time_file.write(exec_time)
-                                exec_time_file.close()
+                            exec_time = re.search(extract_exec_time, line).group(0)
+                            exec_time_file = open(f"{res_dir}/exectime.txt", "w")
+                            exec_time_file.write(exec_time)
+                            exec_time_file.close()
                         except:
                             pass
                 for i in range(len(instructions)):
