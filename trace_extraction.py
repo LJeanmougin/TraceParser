@@ -6,7 +6,7 @@ extract_warp_idx = "(?<=warp )[0-9]+"
 extract_ptx_instr = "(?<=\) ).*"
 extract_instr_addr = "(?<=0x)[a-f0-9]+"
 extract_exec_time = "(?<=kernel_execution_time : ).*"
-extract_trace_name = "[_a-zA-Z0-9]*"
+extract_trace_name = "[_a-zA-Z0-9]*-instance_[0-9]+"
 find_bra_target = "BB[a-zA-Z_0-9]*"
 extract_bra_prefix = "[@%p0-9]* bra[\.a-zA-Z0-9]* "
 
@@ -54,7 +54,8 @@ def extract_traces(traces_dir : str, target_dir_name : str):
         for file in files:
             if ".trace" in file:
                 trace_path = os.path.join(root, file)
-                res_dir = target_dir_name + "/" + re.search(extract_trace_name, file).group(0)
+                data_name = os.path.split(os.path.dirname(os.path.dirname(trace_path)))[1]
+                res_dir = target_dir_name + "/" + data_name + "-" + re.search(extract_trace_name, file).group(0)
                 try:
                     os.makedirs(res_dir)
                     print(f"Directory \"{res_dir}\" created..")

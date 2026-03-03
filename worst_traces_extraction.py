@@ -6,14 +6,15 @@ from pathlib import Path
 class KernelData():
     
     def __init__(self, instance_name : str, instance_exec_time : int):
-        self.res_file_path = instance_name
-        self.instance_exec_time = instance_exec_time
+        self.res_file_path : str = instance_name
+        self.instance_exec_time : int = instance_exec_time
         
     def __str__(self):
         return f"Instance name : {self.instance_name} | Exec time : {self.instance_exec_time}"
 
 def extractKernelName(dirname : str) -> str:
-    kernel_name_pattern = r'(.+?)(?=\d+\b)'
+    kernel_name_pattern = r'[0-9_a-zA-Z]-(.*?)-instance'
+    print(f"dirname is : {dirname}")
     match = re.search(kernel_name_pattern, dirname)
     return match.group(0)
 
@@ -30,7 +31,10 @@ def findWorstInstances(traces_dir_name : str) -> dict[str, KernelData]:
     for root, dirs, _ in os.walk(traces_dir_name):
         for instance_name in dirs:
             dir_path = Path(os.path.join(root, instance_name))
+            print(f"Dir path = {dir_path}")
             kernel_name = extractKernelName(instance_name)
+            print(f"Kernel name : {kernel_name}")
+            print(f"Instance name : {instance_name}")
             exec_time = getTraceExectime(dir_path)
             if kernel_name in worst_traces.keys():
                 current_worst_time = worst_traces[kernel_name].instance_exec_time
@@ -58,8 +62,5 @@ if __name__ == "__main__":
     traces_dir_name = sys.argv[1]
     worst_traces_dir_name = sys.argv[2]
     worst_traces = findWorstInstances(traces_dir_name)
-    createTargetDir(worst_traces_dir_name)
-    for kernel_name in worst_traces.keys():
-        with open(f"{worst_traces_dir_name}/{kernel_name}_etime.txt", "w") as f:
-            f.write(str(worst_traces[kernel_name].instance_exec_time))
+    # createTargetDir(worst_traces_dir_name)
     exit(0)
