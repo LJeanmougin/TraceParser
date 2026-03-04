@@ -22,6 +22,7 @@ class ResultsParser():
     
     def __init__(self, sim_res_dir : str):
         self._sim_res_dir = sim_res_dir
+        self.worst_traces_dict = None
             
     def extractKernelName(self, dirname : str) -> str:
         kernel_name_pattern = r'[0-9_a-zA-Z]+-(.*?)-instance'
@@ -43,7 +44,7 @@ class ResultsParser():
                 warp_count += 1
         return warp_count
 
-    def findWorstInstances(self) -> dict[str, KernelData]:
+    def registerWorstInstances(self):
         worst_traces : dict[str, dict[int, KernelData]] = dict()
         for root, dirs, _ in os.walk(traces_dir_name):
             for instance_name in dirs:
@@ -90,6 +91,6 @@ if __name__ == "__main__":
     traces_dir_name = sys.argv[1]
     worst_traces_dir_name = sys.argv[2]
     res_parser = ResultsParser(traces_dir_name)
-    worst_traces = res_parser.findWorstInstances()
+    worst_traces = res_parser.registerWorstInstances()
     # createTargetDir(worst_traces_dir_name)
     exit(0)
