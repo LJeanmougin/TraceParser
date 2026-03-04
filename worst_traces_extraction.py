@@ -67,9 +67,10 @@ class KernelData():
 
 class ResultsParser():
     
-    def __init__(self, sim_res_dir : str, ptx_src_dir : str):
+    def __init__(self, sim_res_dir : str):
         self._sim_res_dir = sim_res_dir
         self._worst_traces_dir = None
+        self.registerWorstInstances()
             
     def extractKernelName(self, dirname : str) -> str:
         kernel_name_pattern = r'[0-9_a-zA-Z]+-(.*?)-instance'
@@ -96,7 +97,6 @@ class ResultsParser():
         for root, dirs, _ in os.walk(traces_dir_name):
             for instance_name in dirs:
                 dir_path = Path(os.path.join(root, instance_name))
-                print(root)
                 kernel_name = self.extractKernelName(instance_name)
                 exec_time = self.getTraceExectime(dir_path)
                 warp_count = self.getTraceWarpCount(dir_path)
@@ -127,6 +127,19 @@ class ResultsParser():
                 print(f"        exec time : {configs_dict[warp_count].instance_exec_time}")
                 print(f"        path : {configs_dict[warp_count].res_dir_path}")
         print(f"Results total {instance_count} instances")
+
+
+class ResultsDirProducer():
+    
+    def __init__(self, res_parser : ResultsParser, ptx_paths : PtxPaths):
+        self._res_parser : ResultsParser = res_parser
+        self._ptx_paths : PtxPaths = ptx_paths
+        self._res_parser.dumpTracesDict()
+        print("####################################")
+        print(self._ptx_paths)
+    
+    
+
 def createTargetDir(target_dir_name : str):
     try:
         os.makedirs(target_dir_name)
@@ -145,10 +158,7 @@ if __name__ == "__main__":
     traces_dir_name = sys.argv[1]
     ptx_src_dir = sys.argv[2]
     worst_traces_dir_name = sys.argv[3]
-    # res_parser = ResultsParser(traces_dir_name)
-    # res_parser.findWorstInstances()
-    # res_parser.dumpTracesDict()
-    # createTargetDir(worst_traces_dir_name)
-    ptxPaths = PtxPaths(ptx_src_dir)
-    print(ptxPaths)
+    res_parser = ResultsParser(traces_dir_name)
+    ptx_paths = PtxPaths(ptx_src_dir)
+    res_producer = ResultsDirProducer(res_parser, ptx_paths)
     exit(0)
