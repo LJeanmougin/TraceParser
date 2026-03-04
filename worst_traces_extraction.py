@@ -91,10 +91,7 @@ class ResultsParser():
                 warp_count += 1
         return warp_count
 
-    def getPtxPath(self, bench_name : str, kernel_name : str):
-        pass
-
-    def findWorstInstances(self) -> dict[str, KernelData]:
+    def registerWorstInstances(self):
         worst_traces : dict[str, dict[int, KernelData]] = dict()
         for root, dirs, _ in os.walk(traces_dir_name):
             for instance_name in dirs:
