@@ -154,6 +154,7 @@ class ResultsDirProducer():
         self._ptx_paths : PtxPaths = ptx_paths
     
     def generateExpDir(self, target_dir_name : str):
+        print(self._res_parser)
         self.createDir(target_dir_name)
         config_dir_name = os.path.join(target_dir_name, self._res_parser.config_name)
         self.createDir(config_dir_name)
@@ -172,7 +173,7 @@ class ResultsDirProducer():
                 self.copyPtxSrc(ptx_src_path, instance_dir)
                 # TODO : At this point, populate the folder with all required files
                 #   This includes : - warp traces
-                #                   - ptx src file
+                #                   - ptx src file : DONE
                 #                   - exec time
                 #                   - bounds
     
