@@ -1,6 +1,7 @@
 import os
 import sys
 import re
+import shutil
 from pathlib import Path
 
 BENCH_NAME = 0
@@ -38,11 +39,15 @@ class PtxPaths():
                         if ".ptx" in file:
                             path_to_ptx = os.path.join(ptx_dir_path, file)
                             kernel_name = re.search(self._kernel_name_pattern, file)
-                            self._ptx_path_dict[kernel_name.group(0)] = (bench_name, path_to_ptx)
+                            self._ptx_path_dict[kernel_name.group(1)] = (bench_name, path_to_ptx)
     
-        
-        
-class KernelData():
+    def getKernelPtxPath(self, kernel_name : str):
+        return self._ptx_path_dict[kernel_name][PTX_PATH]
+    
+    def getKernelBenchName(self, kernel_name : str):
+        return self._ptx_path_dict[kernel_name][BENCH_NAME]
+           
+class InstanceData():
     
     def __init__(self, res_dir_path : str, kernel_name : str, warp_count : int, instance_exec_time : int):
         self._res_dir_path : str = res_dir_path
@@ -50,7 +55,7 @@ class KernelData():
         self._instance_exec_time : int = instance_exec_time
         self._warp_count : int = warp_count
         self._ptx_src_path : str = None
-    
+        
     @property
     def instance_exec_time(self) -> int:
         return self._instance_exec_time
@@ -69,9 +74,30 @@ class ResultsParser():
     
     def __init__(self, sim_res_dir : str):
         self._sim_res_dir = sim_res_dir
-        self._worst_traces_dir = None
+        self._worst_traces_dict = None
+        self._config_name = None
         self.registerWorstInstances()
+        self.setConfigName()
             
+    def __str__(self):
+        res = ""
+        instance_count = 0
+        for kernel_name in self._worst_traces_dict.keys():
+            configs_dict = self._worst_traces_dict[kernel_name]
+            res += f"Kernel name : {kernel_name}\n"
+            for warp_count in sorted(configs_dict.keys()):
+                if warp_count > 1:
+                    instance_count += 1
+                    res += f"   {warp_count} warps :\n"
+                    res += f"       exec time : {configs_dict[warp_count].instance_exec_time}\n"
+                    res += f"       path : {configs_dict[warp_count].res_dir_path}\n"
+        res += f"Results total {instance_count} instances"
+        return res
+    
+    @property
+    def config_name(self):
+        return self._config_name
+
     def extractKernelName(self, dirname : str) -> str:
         kernel_name_pattern = r'[0-9_a-zA-Z]+-(.*?)-instance'
         match = re.search(kernel_name_pattern, dirname)
@@ -93,18 +119,18 @@ class ResultsParser():
         return warp_count
 
     def registerWorstInstances(self):
-        worst_traces : dict[str, dict[int, KernelData]] = dict()
-        for root, dirs, _ in os.walk(traces_dir_name):
+        worst_traces : dict[str, dict[int, InstanceData]] = dict()
+        for root, dirs, _ in os.walk(self._sim_res_dir):
             for instance_name in dirs:
                 dir_path = Path(os.path.join(root, instance_name))
                 kernel_name = self.extractKernelName(instance_name)
                 exec_time = self.getTraceExectime(dir_path)
                 warp_count = self.getTraceWarpCount(dir_path)
-                kernel_data = KernelData(dir_path, kernel_name, warp_count, exec_time)
+                kernel_data = InstanceData(dir_path, kernel_name, warp_count, exec_time)
                 # NOTE : Only for incomplete simulations. REMOVE WHEN SIMS ARE DONE
                 if kernel_data.instance_exec_time:
                     if kernel_name in worst_traces.keys():
-                        data_dict : dict[int, KernelData] = worst_traces[kernel_name]
+                        data_dict : dict[int, InstanceData] = worst_traces[kernel_name]
                         if warp_count in data_dict.keys():
                             registered_data = data_dict[warp_count]
                         if registered_data.instance_exec_time < kernel_data.instance_exec_time:
@@ -114,51 +140,69 @@ class ResultsParser():
                     else:
                         worst_traces[kernel_name] = dict()
                         worst_traces[kernel_name][warp_count] = kernel_data
-        self._worst_traces_dir = worst_traces
-
-    def dumpTracesDict(self):
-        instance_count = 0
-        for kernel_name in self._worst_traces_dir.keys():
-            configs_dict = self._worst_traces_dir[kernel_name]
-            print(f"Kernel name : {kernel_name}")
-            for warp_count in sorted(configs_dict.keys()):
-                instance_count += 1
-                print(f"    {warp_count} warps :")
-                print(f"        exec time : {configs_dict[warp_count].instance_exec_time}")
-                print(f"        path : {configs_dict[warp_count].res_dir_path}")
-        print(f"Results total {instance_count} instances")
-
-
+        self._worst_traces_dict = worst_traces
+     
+    def setConfigName(self):
+        res_path = Path(self._sim_res_dir)
+        self._config_name = res_path.name
+        
+        
 class ResultsDirProducer():
     
     def __init__(self, res_parser : ResultsParser, ptx_paths : PtxPaths):
         self._res_parser : ResultsParser = res_parser
         self._ptx_paths : PtxPaths = ptx_paths
-        self._res_parser.dumpTracesDict()
-        print("####################################")
-        print(self._ptx_paths)
     
+    def generateExpDir(self, target_dir_name : str):
+        self.createDir(target_dir_name)
+        config_dir_name = os.path.join(target_dir_name, self._res_parser.config_name)
+        self.createDir(config_dir_name)
+        res_dict = self._res_parser._worst_traces_dict
+        for kernel_name in res_dict.keys():
+            bench_name = self._ptx_paths.getKernelBenchName(kernel_name)
+            bench_res_dir = os.path.join(config_dir_name, bench_name)
+            self.createDir(bench_res_dir)
+            kernel_res_dir = os.path.join(bench_res_dir, kernel_name)
+            print(f"kernel res dir : {kernel_res_dir}")
+            ptx_src_path = self._ptx_paths.getKernelPtxPath(kernel_name)
+            instance_data = res_dict[kernel_name]
+            for warp_count in instance_data.keys():
+                instance_dir = os.path.join(kernel_res_dir, f"{warp_count}warps")
+                self.createDir(instance_dir, verbose=True)
+                self.copyPtxSrc(ptx_src_path, instance_dir)
+                # TODO : At this point, populate the folder with all required files
+                #   This includes : - warp traces
+                #                   - ptx src file
+                #                   - exec time
+                #                   - bounds
     
-
-def createTargetDir(target_dir_name : str):
-    try:
-        os.makedirs(target_dir_name)
-        print(f"Directory \"{target_dir_name}\" created.")
-    except FileExistsError:
-        print(f"[WARNING] Directory {target_dir_name} already exists.")
-    except Exception as e:
-        print(f"Error : {e}")
-        exit(-2)
+    def copyPtxSrc(self, src : str, dst : str):
+        shutil.copy(src, dst)
+    
+    def copyWarpTraces(self, src : str, dst : str):
+        pass
+    
+    def createDir(self, target_dir_name : str, verbose : bool = False):
+        try:
+            os.makedirs(target_dir_name)
+            if(verbose):
+                print(f"Directory \"{target_dir_name}\" created.")
+        except FileExistsError:
+            pass
+        except Exception as e:
+            print(f"Error : {e}")
+            exit(-2)
 
 
 if __name__ == "__main__":
     if len(sys.argv) != 4:
-        print(f"Usage : {sys.argv[0]} traces_dir ptx_src_dir worst_traces_dir")
+        print(f"Usage : {sys.argv[0]} traces_dir ptx_src_dir exp_target_dir")
         exit(1)
     traces_dir_name = sys.argv[1]
     ptx_src_dir = sys.argv[2]
-    worst_traces_dir_name = sys.argv[3]
+    exp_target_dir = sys.argv[3]
     res_parser = ResultsParser(traces_dir_name)
     ptx_paths = PtxPaths(ptx_src_dir)
     res_producer = ResultsDirProducer(res_parser, ptx_paths)
+    res_producer.generateExpDir(exp_target_dir)
     exit(0)
