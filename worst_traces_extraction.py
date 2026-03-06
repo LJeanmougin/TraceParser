@@ -53,8 +53,11 @@ class InstanceData():
         self._res_dir_path : str = res_dir_path
         self._kernel_name : str = kernel_name
         self._instance_exec_time : int = instance_exec_time
+        self._exec_time_path : str = os.path.join(res_dir_path, "exectime.txt")
         self._warp_count : int = warp_count
         self._ptx_src_path : str = None
+        self._warp_traces_paths : set[str] = None
+        self.setWarpTracesPaths()
         
     @property
     def instance_exec_time(self) -> int:
@@ -64,9 +67,25 @@ class InstanceData():
     def res_dir_path(self) -> str:
         return self._res_dir_path
     
+    @property
+    def warp_traces_paths(self) -> set[str]:
+        return self._warp_traces_paths
+    
+    @property
+    def exec_time_path(self) -> str:
+        return self._exec_time_path
+
     def setPtxSrcPath(self, ptx_src_path : str):
         self._ptx_src_path = ptx_src_path
-        
+    
+    def setWarpTracesPaths(self):
+        self._warp_traces_paths = set()
+        for root, _, files in os.walk(self._res_dir_path):
+            for file in files:
+                if ".ptx" in file:
+                    warp_trace_path = os.path.join(root, file)
+                    self._warp_traces_paths.add(warp_trace_path)
+
     def __str__(self):
         return f"Instance name : {self._res_dir_path} | Exec time : {self._instance_exec_time}"
 
@@ -154,7 +173,6 @@ class ResultsDirProducer():
         self._ptx_paths : PtxPaths = ptx_paths
     
     def generateExpDir(self, target_dir_name : str):
-        print(self._res_parser)
         self.createDir(target_dir_name)
         config_dir_name = os.path.join(target_dir_name, self._res_parser.config_name)
         self.createDir(config_dir_name)
@@ -164,24 +182,24 @@ class ResultsDirProducer():
             bench_res_dir = os.path.join(config_dir_name, bench_name)
             self.createDir(bench_res_dir)
             kernel_res_dir = os.path.join(bench_res_dir, kernel_name)
-            print(f"kernel res dir : {kernel_res_dir}")
             ptx_src_path = self._ptx_paths.getKernelPtxPath(kernel_name)
-            instance_data = res_dict[kernel_name]
-            for warp_count in instance_data.keys():
+            kernel_data = res_dict[kernel_name]
+            for warp_count in kernel_data.keys():
                 instance_dir = os.path.join(kernel_res_dir, f"{warp_count}warps")
+                instance_data = kernel_data[warp_count]
                 self.createDir(instance_dir, verbose=True)
-                self.copyPtxSrc(ptx_src_path, instance_dir)
+                self.copyWarpTraces(instance_data.warp_traces_paths, instance_dir)
+                shutil.copy(ptx_src_path, instance_dir)
+                shutil.copy(instance_data.exec_time_path, instance_dir)
                 # TODO : At this point, populate the folder with all required files
-                #   This includes : - warp traces
+                #   This includes : - warp traces : DONE
                 #                   - ptx src file : DONE
                 #                   - exec time
                 #                   - bounds
     
-    def copyPtxSrc(self, src : str, dst : str):
-        shutil.copy(src, dst)
-    
-    def copyWarpTraces(self, src : str, dst : str):
-        pass
+    def copyWarpTraces(self, warps_trace_src : set[str], dst : str):
+        for trace_src in warps_trace_src:
+            shutil.copy(trace_src, dst)
     
     def createDir(self, target_dir_name : str, verbose : bool = False):
         try:
