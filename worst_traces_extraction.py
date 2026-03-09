@@ -194,8 +194,8 @@ class ResultsDirProducer():
                 # TODO : At this point, populate the folder with all required files
                 #   This includes : - warp traces : DONE
                 #                   - ptx src file : DONE
-                #                   - exec time
-                #                   - bounds
+                #                   - exec time : DONE
+                #                   - bounds : IN PROGRESS
     
     def copyWarpTraces(self, warps_trace_src : set[str], dst : str):
         for trace_src in warps_trace_src:
