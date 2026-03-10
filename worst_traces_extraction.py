@@ -168,9 +168,10 @@ class ResultsParser():
         
 class ResultsDirProducer():
     
-    def __init__(self, res_parser : ResultsParser, ptx_paths : PtxPaths):
+    def __init__(self, res_parser : ResultsParser, ptx_paths : PtxPaths, bounds_dir_path : str):
         self._res_parser : ResultsParser = res_parser
         self._ptx_paths : PtxPaths = ptx_paths
+        self._bounds_dir_path : str = bounds_dir_path
     
     def generateExpDir(self, target_dir_name : str):
         self.createDir(target_dir_name)
@@ -191,6 +192,8 @@ class ResultsDirProducer():
                 self.copyWarpTraces(instance_data.warp_traces_paths, instance_dir)
                 shutil.copy(ptx_src_path, instance_dir)
                 shutil.copy(instance_data.exec_time_path, instance_dir)
+                bounds_file = os.path.join(self._bounds_dir_path, bench_name, kernel_name, "bounds.txt")
+                shutil.copy(bounds_file, instance_dir)
                 # TODO : At this point, populate the folder with all required files
                 #   This includes : - warp traces : DONE
                 #                   - ptx src file : DONE
@@ -214,14 +217,15 @@ class ResultsDirProducer():
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        print(f"Usage : {sys.argv[0]} traces_dir ptx_src_dir exp_target_dir")
+    if len(sys.argv) != 5:
+        print(f"Usage : {sys.argv[0]} traces_dir ptx_src_dir bounds_path exp_target_dir")
         exit(1)
     traces_dir_name = sys.argv[1]
     ptx_src_dir = sys.argv[2]
-    exp_target_dir = sys.argv[3]
+    bounds_dir_path = sys.argv[3]
+    exp_target_dir = sys.argv[4]
     res_parser = ResultsParser(traces_dir_name)
     ptx_paths = PtxPaths(ptx_src_dir)
-    res_producer = ResultsDirProducer(res_parser, ptx_paths)
+    res_producer = ResultsDirProducer(res_parser, ptx_paths, bounds_dir_path)
     res_producer.generateExpDir(exp_target_dir)
     exit(0)
