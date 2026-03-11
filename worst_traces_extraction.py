@@ -190,7 +190,7 @@ class ResultsDirProducer():
                 instance_data = kernel_data[warp_count]
                 self.createDir(instance_dir, verbose=True)
                 self.copyWarpTraces(instance_data.warp_traces_paths, instance_dir)
-                shutil.copy(ptx_src_path, instance_dir)
+                shutil.copy(ptx_src_path, os.path.join(instance_dir, "src_" + kernel_name + ".ptx"))
                 shutil.copy(instance_data.exec_time_path, instance_dir)
                 bounds_file = os.path.join(self._bounds_dir_path, bench_name, kernel_name, "bounds.txt")
                 shutil.copy(bounds_file, instance_dir)
