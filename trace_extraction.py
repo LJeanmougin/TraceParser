@@ -48,6 +48,10 @@ class Instruction():
     def warp_idx(self):
         return self._warp_idx
     
+    @property
+    def is_branch(self):
+        return "bra" in self._ptx_instruction
+    
 
 def extract_traces(traces_dir : str, target_dir_name : str):
     for root, dir ,files in os.walk(traces_dir):   
@@ -69,6 +73,7 @@ def extract_traces(traces_dir : str, target_dir_name : str):
                 trace_file = open(trace_path)
                 out_files = dict()
                 branch_uid = 0
+                last_instruction : dict[int, Instruction] = dict()
                 # To detect branch taken or not
                 instructions : list[Instruction] = []
                 for line in trace_file.readlines():
@@ -86,14 +91,26 @@ def extract_traces(traces_dir : str, target_dir_name : str):
                     try:
                         instruction = instructions[i]
                         warp_idx = instruction.warp_idx
+                        pred_instruction = None
+                        if warp_idx in last_instruction.keys():
+                            pred_instruction = last_instruction[warp_idx]
                         if not warp_idx in out_files:
                             out_files[warp_idx] = open(f"{res_dir}/w{warp_idx}.ptx", "w")
                             out_files[warp_idx].write(ptx_header)
                         ptx_instr = instruction.ptx_instruction
                         try :
+                            # PROBLEM WITH BRANCH TAKEN IN TRACE
+                            # CHECK IF LAST WAS BRANCH TAKEN AND IF YES WRITE IT IN WARP TRACE
                             # getting branch target for block analyzer
+                            if pred_instruction and pred_instruction.is_branch:
+                                if pred_instruction.address + 8 != instruction.address:
+                                    hint = "taken"
+                                    if abs(pred_instruction.address - instruction.address) >= 512:
+                                        hint += "far"
+                                    if not '@' in pred_instruction:
+                                        ptx_instr = "@" + pred_instruction + "BB" + hint + "_" + str(branch_uid) + ";"
                             branch_inst = re.search(extract_bra_prefix, ptx_instr).group(0)
-                            taken = instruction.address + 8 != instructions[i+1].address
+                            taken = pred_instruction.address + 8 != instructions[i+1].address
                             hint = "taken" if taken else ""
                             if abs(instruction.address - instructions[i+1].address) >= 512:
                                 hint += "far"
@@ -115,6 +132,7 @@ def extract_traces(traces_dir : str, target_dir_name : str):
                         if branch_inst:
                             out_files[warp_idx].write("\nBB" + hint + "_" + str(branch_uid) + ":\n")
                             branch_uid += 1
+                        last_instruction[warp_idx] = instruction
                     except:
                         print(f"Not an instruction line..")
                         try :
