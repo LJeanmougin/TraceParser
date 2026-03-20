@@ -35,6 +35,9 @@ class Instruction():
             self._warp_idx = re.search(extract_warp_idx, line).group(0)
         except:
             print("No warp idx")    
+    
+    def setPtxInstruction(self, ptx_instruction : str):
+        self._ptx_instruction = ptx_instruction
         
     @property
     def address(self):
@@ -51,7 +54,98 @@ class Instruction():
     @property
     def is_branch(self):
         return "bra" in self._ptx_instruction
+
+    def isContiguous(self, next_instr : 'Instruction'):
+        return self.address + 8 == next_instr.address
     
+class WarpTrace():
+    
+    def __init__(self, warp_id : int):
+        self._warp_id : int = warp_id
+        self._instructions : list[Instruction] = []
+        self._branch_uid = 0
+    
+    def addInstruction(self, instr : Instruction):
+        self._instructions.append(instr)
+        
+    def addTakenHint(self, branch_instr : Instruction, next_instr : Instruction):
+        try:
+            prefix = re.search(extract_bra_prefix, branch_instr.ptx_instruction).group(0)
+            if not "@" in prefix:
+                prefix = f"@{prefix}"
+        except:
+            if "bra.uni" in branch_instr.ptx_instruction:
+                prefix = "bra.uni "
+            else:
+                print(f"Not a branch instruction : {branch_instr.ptx_instruction}")
+                exit()
+        if not branch_instr.isContiguous(next_instr):
+            label = f"BBtaken_{self._branch_uid}"
+        else:
+            label = f"BB_{self._branch_uid}"
+            
+        new_ptx_instruction = f"{prefix}{label};\n\n{label}:"
+        self._branch_uid += 1
+        branch_instr.setPtxInstruction(new_ptx_instruction)
+        
+    def writeTrace(self, trace_dir : str):
+        warp_trace_path = os.path.join(trace_dir, f"w{self._warp_id}.ptx")
+        warp_trace_file = open(warp_trace_path, "w")
+        warp_trace_file.write(ptx_header)
+        for i in range(len(self._instructions)):
+            instr = self._instructions[i]
+            if instr.is_branch:
+                self.addTakenHint(instr, self._instructions[i+1])
+            warp_trace_file.write(f"{instr.ptx_instruction}\n")
+        warp_trace_file.write("}")
+        warp_trace_file.close()
+        
+class KernelTraces():
+    
+    def __init__(self):
+        self._traces : dict[int, WarpTrace] = dict()
+    
+    def addInstruction(self, instr : Instruction):
+        warp_idx = instr.warp_idx
+        if not warp_idx in self._traces.keys():
+            self._traces[warp_idx] = WarpTrace(warp_idx)
+        self._traces[warp_idx].addInstruction(instr)
+        
+    def writeTraces(self, res_dir : str):
+        for warp in self._traces.keys():
+            self._traces[warp].writeTrace(res_dir)    
+
+def extract_results(traces_dir : str, target_dir_name : str):
+    for root, _, files in os.walk(traces_dir):
+        for file in files:
+            if ".trace" in file:
+                trace_path = os.path.join(root, file)
+                data_name = os.path.split(os.path.dirname(os.path.dirname(trace_path)))[1]
+                res_dir = f"{target_dir_name}/{data_name}-{re.search(extract_trace_name, file).group(0)}"
+                try:
+                    os.makedirs(res_dir)
+                    print(f"Directory \"{res_dir}\" created..")
+                except FileExistsError:
+                    print(f"Current file is {file.__str__()} but :")
+                    print(f"Directory \"{res_dir}\" already exists..")
+                except PermissionError:
+                    print(f"Permission denied to create \"{res_dir}\"")
+                except Exception as e:
+                    print(f"Error : {e}")
+                trace_file = open(trace_path)
+                kernel_traces = KernelTraces()
+                for line in trace_file.readlines():
+                    if "0x" in line:
+                        kernel_traces.addInstruction(Instruction(line))
+                    else:
+                        try:
+                            exec_time = re.search(extract_exec_time, line).group(0)
+                            exec_time_file = open(f"{res_dir}/exectime.txt", "w")
+                            exec_time_file.write(exec_time)
+                            exec_time_file.close()
+                        except:
+                            print(f"Couldn't extract an execution time for {file}")
+                kernel_traces.writeTraces(res_dir)
 
 def extract_traces(traces_dir : str, target_dir_name : str):
     for root, dir ,files in os.walk(traces_dir):   
@@ -98,40 +192,21 @@ def extract_traces(traces_dir : str, target_dir_name : str):
                             out_files[warp_idx] = open(f"{res_dir}/w{warp_idx}.ptx", "w")
                             out_files[warp_idx].write(ptx_header)
                         ptx_instr = instruction.ptx_instruction
-                        try :
-                            # PROBLEM WITH BRANCH TAKEN IN TRACE
-                            # CHECK IF LAST WAS BRANCH TAKEN AND IF YES WRITE IT IN WARP TRACE
-                            # getting branch target for block analyzer
-                            if pred_instruction and pred_instruction.is_branch:
-                                if pred_instruction.address + 8 != instruction.address:
-                                    hint = "taken"
-                                    if abs(pred_instruction.address - instruction.address) >= 512:
-                                        hint += "far"
-                                    if not '@' in pred_instruction:
-                                        ptx_instr = "@" + pred_instruction + "BB" + hint + "_" + str(branch_uid) + ";"
-                            branch_inst = re.search(extract_bra_prefix, ptx_instr).group(0)
-                            taken = pred_instruction.address + 8 != instructions[i+1].address
-                            hint = "taken" if taken else ""
-                            if abs(instruction.address - instructions[i+1].address) >= 512:
-                                hint += "far"
-                            if not '@' in branch_inst:
-                                ptx_instr = "@" + branch_inst + "BB" + hint + "_" + str(branch_uid) + ";"
-                            else:
-                                ptx_instr = branch_inst + "BB" + hint + "_" + str(branch_uid) + ";"
-                        except :
-                            if "bra.uni" in ptx_instr:
-                                taken = instruction.address + 8 != instructions[i+1].address
-                                hint = "taken" if taken else ""
-                                if abs(instruction.address - instructions[i+1].address) >= 512:
+                        if pred_instruction and pred_instruction.is_branch:
+                            if pred_instruction.address + 8 != instruction.address:
+                                branch_inst = re.search(extract_bra_prefix, pred_instruction.ptx_instruction).group(0)
+                                hint = "taken"
+                                if abs(pred_instruction.address - instruction.address) >= 512:
                                     hint += "far"
-                                branch_inst = "bra.uni BB" + hint + "_" + str(branch_uid) + ";"
-                                ptx_instr = branch_inst 
-                            else:
-                                branch_inst = None
-                        out_files[warp_idx].write(ptx_instr + "\n")
-                        if branch_inst:
+                                if not '@' in pred_instruction:
+                                    ptx_instr = "@" + pred_instruction + "BB" + hint + "_" + str(branch_uid) + ";"
+                                else:
+                                    ptx_instr = branch_inst + "BB" + hint + "_" + str(branch_uid) + ";"
+                            out_files[warp_idx].write(ptx_instr + "\n")
                             out_files[warp_idx].write("\nBB" + hint + "_" + str(branch_uid) + ":\n")
                             branch_uid += 1
+                        if not instruction.is_branch:
+                            out_files[warp_idx].write(ptx_instr + "\n")
                         last_instruction[warp_idx] = instruction
                     except:
                         print(f"Not an instruction line..")
@@ -150,4 +225,5 @@ if __name__ == "__main__":
     if len(sys.argv) != 3:
         print(f"Usage : {sys.argv[0]} traces_dir target_dir")
         exit(0)
-    extract_traces(sys.argv[1], sys.argv[2])
+    # extract_traces(sys.argv[1], sys.argv[2])
+    extract_results(sys.argv[1], sys.argv[2])
