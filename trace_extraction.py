@@ -147,83 +147,8 @@ def extract_results(traces_dir : str, target_dir_name : str):
                             print(f"Couldn't extract an execution time for {file}")
                 kernel_traces.writeTraces(res_dir)
 
-def extract_traces(traces_dir : str, target_dir_name : str):
-    for root, dir ,files in os.walk(traces_dir):   
-        for file in files:
-            if ".trace" in file:
-                trace_path = os.path.join(root, file)
-                data_name = os.path.split(os.path.dirname(os.path.dirname(trace_path)))[1]
-                res_dir = target_dir_name + "/" + data_name + "-" + re.search(extract_trace_name, file).group(0)
-                try:
-                    os.makedirs(res_dir)
-                    print(f"Directory \"{res_dir}\" created..")
-                except FileExistsError:
-                    print(f"Current file is {file.__str__()} but :")
-                    print(f"Directory \"{res_dir}\" already exists..")
-                except PermissionError:
-                    print(f"Permission denied to create \"{res_dir}\"")
-                except Exception as e:
-                    print(f"Error : {e}")
-                trace_file = open(trace_path)
-                out_files = dict()
-                branch_uid = 0
-                last_instruction : dict[int, Instruction] = dict()
-                # To detect branch taken or not
-                instructions : list[Instruction] = []
-                for line in trace_file.readlines():
-                    if "0x" in line:
-                        instructions.append(Instruction(line))
-                    else:
-                        try:
-                            exec_time = re.search(extract_exec_time, line).group(0)
-                            exec_time_file = open(f"{res_dir}/exectime.txt", "w")
-                            exec_time_file.write(exec_time)
-                            exec_time_file.close()
-                        except:
-                            pass
-                for i in range(len(instructions)):
-                    try:
-                        instruction = instructions[i]
-                        warp_idx = instruction.warp_idx
-                        pred_instruction = None
-                        if warp_idx in last_instruction.keys():
-                            pred_instruction = last_instruction[warp_idx]
-                        if not warp_idx in out_files:
-                            out_files[warp_idx] = open(f"{res_dir}/w{warp_idx}.ptx", "w")
-                            out_files[warp_idx].write(ptx_header)
-                        ptx_instr = instruction.ptx_instruction
-                        if pred_instruction and pred_instruction.is_branch:
-                            if pred_instruction.address + 8 != instruction.address:
-                                branch_inst = re.search(extract_bra_prefix, pred_instruction.ptx_instruction).group(0)
-                                hint = "taken"
-                                if abs(pred_instruction.address - instruction.address) >= 512:
-                                    hint += "far"
-                                if not '@' in pred_instruction:
-                                    ptx_instr = "@" + pred_instruction + "BB" + hint + "_" + str(branch_uid) + ";"
-                                else:
-                                    ptx_instr = branch_inst + "BB" + hint + "_" + str(branch_uid) + ";"
-                            out_files[warp_idx].write(ptx_instr + "\n")
-                            out_files[warp_idx].write("\nBB" + hint + "_" + str(branch_uid) + ":\n")
-                            branch_uid += 1
-                        if not instruction.is_branch:
-                            out_files[warp_idx].write(ptx_instr + "\n")
-                        last_instruction[warp_idx] = instruction
-                    except:
-                        print(f"Not an instruction line..")
-                        try :
-                            exec_time = re.search(extract_exec_time, line).group(0)
-                            exec_time_file = open(f"{res_dir}/exectime.txt", "w")
-                            exec_time_file.write(exec_time)
-                            exec_time_file.close()
-                        except :
-                            print(f"Not an execution time info either..")
-                for item in out_files:
-                    out_files[item].write("}\n")
-                    out_files[item].close()
-                trace_file.close()
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print(f"Usage : {sys.argv[0]} traces_dir target_dir")
         exit(0)
-    # extract_traces(sys.argv[1], sys.argv[2])
     extract_results(sys.argv[1], sys.argv[2])
