@@ -192,14 +192,11 @@ class ResultsDirProducer():
                 self.copyWarpTraces(instance_data.warp_traces_paths, instance_dir)
                 shutil.copy(ptx_src_path, os.path.join(instance_dir, "src_" + kernel_name + ".ptx"))
                 shutil.copy(instance_data.exec_time_path, instance_dir)
-                bounds_file = os.path.join(self._bounds_dir_path, bench_name, kernel_name, "bounds.txt")
-                shutil.copy(bounds_file, instance_dir)
-                # TODO : At this point, populate the folder with all required files
-                #   This includes : - warp traces : DONE
-                #                   - ptx src file : DONE
-                #                   - exec time : DONE
-                #                   - bounds : IN PROGRESS
-    
+                bounds_file_1w = os.path.join(self._bounds_dir_path, "1w", bench_name, kernel_name, "bounds.txt")
+                bounds_file_1b = os.path.join(self._bounds_dir_path, "1b", bench_name, kernel_name, "bounds.txt")
+                shutil.copy(bounds_file_1w, f"{instance_dir}/bounds_1w.txt")
+                shutil.copy(bounds_file_1b, f"{instance_dir}/bounds_1b.txt")
+                
     def copyWarpTraces(self, warps_trace_src : set[str], dst : str):
         for trace_src in warps_trace_src:
             shutil.copy(trace_src, dst)
