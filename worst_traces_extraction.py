@@ -150,9 +150,10 @@ class ResultsParser():
                 if kernel_data.instance_exec_time:
                     if kernel_name in worst_traces.keys():
                         data_dict : dict[int, InstanceData] = worst_traces[kernel_name]
+                        registered_data = None
                         if warp_count in data_dict.keys():
                             registered_data = data_dict[warp_count]
-                        if registered_data.instance_exec_time < kernel_data.instance_exec_time:
+                        if registered_data and (registered_data.instance_exec_time < kernel_data.instance_exec_time):
                             data_dict[warp_count] = kernel_data
                         else:
                             data_dict[warp_count] = kernel_data
@@ -174,6 +175,17 @@ class ResultsDirProducer():
         self._bounds_dir_path : str = bounds_dir_path
     
     def generateExpDir(self, target_dir_name : str):
+        if "rodinia" in target_dir_name:
+            self.generateRodiniaExpDir(target_dir_name)
+        elif "sgemm" in target_dir_name:
+            self.generateSgemmExpDir(target_dir_name)
+        elif "kalman" in target_dir_name:
+            self.generateKalmanExpDir(target_dir_name)
+        else:
+            print(f"[ERROR] Can't handle bench for target : {target_dir_name}")
+            exit()
+                
+    def generateRodiniaExpDir(self, target_dir_name : str):
         self.createDir(target_dir_name)
         config_dir_name = os.path.join(target_dir_name, self._res_parser.config_name)
         self.createDir(config_dir_name)
@@ -195,7 +207,33 @@ class ResultsDirProducer():
                 bounds_file_1w = os.path.join(self._bounds_dir_path, "1w", bench_name, kernel_name, "bounds.txt")
                 bounds_file_1b = os.path.join(self._bounds_dir_path, "1b", bench_name, kernel_name, "bounds.txt")
                 shutil.copy(bounds_file_1w, f"{instance_dir}/bounds_1w.txt")
-                shutil.copy(bounds_file_1b, f"{instance_dir}/bounds_1b.txt")
+                shutil.copy(bounds_file_1b, f"{instance_dir}/bounds.txt")
+    
+    def generateSgemmExpDir(self, target_dir_name : str):
+        self.createDir(target_dir_name)
+        config_dir_name = os.path.join(target_dir_name, self._res_parser.config_name)
+        self.createDir(config_dir_name)
+        res_dict = self._res_parser._worst_traces_dict
+        for kernel_name in res_dict.keys():
+            bench_name = self._ptx_paths.getKernelBenchName(kernel_name)
+            bench_res_dir = os.path.join(config_dir_name, bench_name)
+            self.createDir(bench_res_dir)
+            kernel_res_dir = os.path.join(bench_res_dir, kernel_name)
+            ptx_src_path = self._ptx_paths.getKernelPtxPath(kernel_name)
+            kernel_data = res_dict[kernel_name]
+            for warp_count in kernel_data.keys():
+                instance_dir = os.path.join(kernel_res_dir, f"{warp_count}warps")
+                instance_data = kernel_data[warp_count]
+                self.createDir(instance_dir, verbose=True)
+                self.copyWarpTraces(instance_data.warp_traces_paths, instance_dir)
+                shutil.copy(ptx_src_path, os.path.join(instance_dir, "src_" + kernel_name + ".ptx"))
+                shutil.copy(instance_data.exec_time_path, instance_dir)
+                bound_file = os.path.join(self._bounds_dir_path, f"{warp_count}w", kernel_name, "bounds.txt")
+                shutil.copy(bound_file, f"{instance_dir}/bounds.txt")
+                
+                
+    def generateKalmanExpDir(self, target_dir_name : str):
+        pass
                 
     def copyWarpTraces(self, warps_trace_src : set[str], dst : str):
         for trace_src in warps_trace_src:
