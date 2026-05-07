@@ -1,0 +1,78 @@
+.version 7.0
+.target sm_75
+.address_size 64
+.visible .entry _Z6kerneliPfS_S_S_(
+.param .u32 _Z6kerneliPfS_S_S__param_0,
+.param .u64 _Z6kerneliPfS_S_S__param_1,
+.param .u64 _Z6kerneliPfS_S_S__param_2,
+.param .u64 _Z6kerneliPfS_S_S__param_3,
+.param .u64 _Z6kerneliPfS_S_S__param_4
+)
+{
+.reg .pred %p<680>;
+.reg .f32 %f<2255>;
+.reg .b32 %r<1409>;
+.reg .f64 %fd<3298>;
+.reg .b64 %rd<76>;
+
+
+ld.param.u64 %rd12, [_Z6kerneliPfS_S_S__param_1];
+ld.param.u64 %rd11, [_Z6kerneliPfS_S_S__param_2];
+ld.param.u64 %rd13, [_Z6kerneliPfS_S_S__param_3];
+cvta.to.global.u64 %rd1, %rd11;
+cvta.to.global.u64 %rd2, %rd12;
+mov.u32 %r1, %tid.x;
+cvta.to.global.u64 %rd3, %rd13;
+mov.u32 %r138, %ctaid.x;
+setp.eq.s32	%p32, %r138, 0;
+@%p32 bra BB0_157;
+bra.uni BB0_1;
+
+BB0_157:
+setp.ne.s32	%p191, %r1, 0;
+@%p191 bra BB0_607;
+
+ld.global.f32 %f116, [%rd3+60];
+ld.global.f32 %f117, [%rd2];
+ld.global.f32 %f118, [%rd2+4];
+ld.global.f32 %f119, [%rd2+8];
+ld.global.f32 %f120, [%rd2+12];
+ld.global.f32 %f121, [%rd2+16];
+ld.global.f32 %f122, [%rd2+20];
+ld.global.f32 %f123, [%rd2+24];
+ld.global.f32 %f124, [%rd2+28];
+ld.global.f32 %f125, [%rd2+32];
+ld.global.f32 %f126, [%rd2+36];
+ld.global.f32 %f127, [%rd2+40];
+ld.global.f32 %f128, [%rd2+44];
+ld.global.f32 %f129, [%rd2+48];
+ld.global.f32 %f130, [%rd2+52];
+ld.global.f32 %f131, [%rd2+56];
+ld.global.f32 %f132, [%rd2+60];
+ld.global.f32 %f133, [%rd2+64];
+ld.global.f32 %f134, [%rd2+68];
+ld.global.f32 %f135, [%rd2+72];
+ld.global.f32 %f136, [%rd2+76];
+ld.global.f32 %f137, [%rd2+80];
+ld.global.f32 %f138, [%rd2+88];
+ld.global.f32 %f139, [%rd2+92];
+ld.global.f32 %f140, [%rd2+96];
+ld.global.f32 %f141, [%rd2+100];
+ld.global.f32 %f142, [%rd2+104];
+ld.global.f32 %f143, [%rd2+108];
+ld.global.f32 %f144, [%rd2+112];
+ld.global.f32 %f145, [%rd2+116];
+ld.global.f32 %f146, [%rd2+120];
+ld.global.f32 %f147, [%rd2+124];
+ld.global.f32 %f148, [%rd2+128];
+ld.global.f32 %f149, [%rd2+132];
+ld.global.f32 %f150, [%rd2+136];
+ld.global.f32 %f151, [%rd2+140];
+ld.global.f32 %f152, [%rd2+144];
+ld.global.f32 %f153, [%rd2+148];
+ld.global.f32 %f154, [%rd2+152];
+ld.global.f32 %f155, [%rd2+156];
+mov.f64 %fd901, 0d4000000000000000;
+{
+.reg .b32 %temp; 
+mov.b64 {%temp, %r10}

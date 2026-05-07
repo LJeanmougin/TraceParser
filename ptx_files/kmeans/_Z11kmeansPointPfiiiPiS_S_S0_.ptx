@@ -1,0 +1,64 @@
+.version 7.0
+.target sm_75
+.address_size 64
+.visible .entry _Z11kmeansPointPfiiiPiS_S_S0_(
+.param .u64 _Z11kmeansPointPfiiiPiS_S_S0__param_0,
+.param .u32 _Z11kmeansPointPfiiiPiS_S_S0__param_1,
+.param .u32 _Z11kmeansPointPfiiiPiS_S_S0__param_2,
+.param .u32 _Z11kmeansPointPfiiiPiS_S_S0__param_3,
+.param .u64 _Z11kmeansPointPfiiiPiS_S_S0__param_4,
+.param .u64 _Z11kmeansPointPfiiiPiS_S_S0__param_5,
+.param .u64 _Z11kmeansPointPfiiiPiS_S_S0__param_6,
+.param .u64 _Z11kmeansPointPfiiiPiS_S_S0__param_7
+)
+{
+.reg .pred %p<13>;
+.reg .f32 %f<68>;
+.reg .b32 %r<56>;
+.reg .b64 %rd<21>;
+
+
+ld.param.u32 %r22, [_Z11kmeansPointPfiiiPiS_S_S0__param_1];
+ld.param.u32 %r23, [_Z11kmeansPointPfiiiPiS_S_S0__param_2];
+ld.param.u32 %r24, [_Z11kmeansPointPfiiiPiS_S_S0__param_3];
+ld.param.u64 %rd5, [_Z11kmeansPointPfiiiPiS_S_S0__param_4];
+mov.u32 %r26, %nctaid.x;
+mov.u32 %r27, %ctaid.y;
+mov.u32 %r28, %ctaid.x;
+mad.lo.s32 %r29, %r27, %r26, %r28;
+mov.u32 %r30, %ntid.x;
+mul.lo.s32 %r1, %r29, %r30;
+mov.u32 %r2, %ntid.y;
+mov.u32 %r3, %tid.x;
+mad.lo.s32 %r4, %r1, %r2, %r3;
+setp.lt.u32	%p1, %r4, %r23;
+setp.gt.s32	%p2, %r24, 0;
+and.pred %p3, %p1, %p2;
+mov.u32 %r55, -1;
+@!%p3 bra BB1_13;
+bra.uni BB1_1;
+
+BB1_1:
+mov.u32 %r55, -1;
+mov.u32 %r48, 0;
+mov.f32 %f62, 0f7F7FFFFF;
+
+BB1_2:
+mul.lo.s32 %r8, %r48, %r22;
+mov.f32 %f67, 0f00000000;
+setp.lt.s32	%p4, %r22, 1;
+@%p4 bra BB1_12;
+
+and.b32 %r36, %r22, 3;
+mov.u32 %r52, 0;
+mov.f32 %f67, 0f00000000;
+setp.eq.s32	%p5, %r36, 0;
+@%p5 bra BB1_9;
+
+setp.eq.s32	%p6, %r36, 1;
+@%p6 bra BB1_8;
+
+setp.eq.s32	%p7, %r36, 2;
+@%p7 bra BB1_7;
+
+tex.1d.v4.f32.s32	{%f17, %f18, %f19, %f20}

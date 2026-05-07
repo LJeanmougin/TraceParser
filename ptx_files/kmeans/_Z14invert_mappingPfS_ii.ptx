@@ -1,0 +1,111 @@
+.version 7.0
+.target sm_75
+.address_size 64
+.visible .entry _Z14invert_mappingPfS_ii(
+.param .u64 _Z14invert_mappingPfS_ii_param_0,
+.param .u64 _Z14invert_mappingPfS_ii_param_1,
+.param .u32 _Z14invert_mappingPfS_ii_param_2,
+.param .u32 _Z14invert_mappingPfS_ii_param_3
+)
+{
+.reg .pred %p<9>;
+.reg .f32 %f<8>;
+.reg .b32 %r<38>;
+.reg .b64 %rd<28>;
+
+
+ld.param.u64 %rd6, [_Z14invert_mappingPfS_ii_param_0];
+ld.param.u64 %rd7, [_Z14invert_mappingPfS_ii_param_1];
+ld.param.u32 %r18, [_Z14invert_mappingPfS_ii_param_2];
+ld.param.u32 %r19, [_Z14invert_mappingPfS_ii_param_3];
+cvta.to.global.u64 %rd1, %rd7;
+cvta.to.global.u64 %rd2, %rd6;
+mov.u32 %r1, %ctaid.x;
+mov.u32 %r2, %ntid.x;
+mov.u32 %r3, %tid.x;
+mad.lo.s32 %r4, %r1, %r2, %r3;
+setp.lt.s32	%p1, %r4, %r18;
+setp.gt.s32	%p2, %r19, 0;
+and.pred %p3, %p1, %p2;
+@!%p3 bra BB0_10;
+bra.uni BB0_1;
+
+BB0_1:
+mul.lo.s32 %r5, %r4, %r19;
+and.b32 %r23, %r19, 3;
+mov.u32 %r33, 0;
+setp.eq.s32	%p4, %r23, 0;
+@%p4 bra BB0_7;
+
+setp.eq.s32	%p5, %r23, 1;
+@%p5 bra BB0_6;
+
+setp.eq.s32	%p6, %r23, 2;
+@%p6 bra BB0_5;
+
+mul.wide.s32 %rd8, %r5, 4;
+add.s64 %rd9, %rd2, %rd8;
+ld.global.f32 %f1, [%rd9];
+mul.wide.s32 %rd10, %r4, 4;
+add.s64 %rd11, %rd1, %rd10;
+st.global.f32 [%rd11], %f1;
+mov.u32 %r33, 1;
+
+BB0_5:
+add.s32 %r25, %r33, %r5;
+mul.wide.s32 %rd12, %r25, 4;
+add.s64 %rd13, %rd2, %rd12;
+ld.global.f32 %f2, [%rd13];
+neg.s32 %r26, %r33;
+and.b32 %r27, %r26, %r18;
+add.s32 %r28, %r27, %r4;
+mul.wide.s32 %rd14, %r28, 4;
+add.s64 %rd15, %rd1, %rd14;
+st.global.f32 [%rd15], %f2;
+add.s32 %r33, %r33, 1;
+
+BB0_6:
+add.s32 %r29, %r33, %r5;
+mul.wide.s32 %rd16, %r29, 4;
+add.s64 %rd17, %rd2, %rd16;
+ld.global.f32 %f3, [%rd17];
+mad.lo.s32 %r30, %r33, %r18, %r4;
+mul.wide.s32 %rd18, %r30, 4;
+add.s64 %rd19, %rd1, %rd18;
+st.global.f32 [%rd19], %f3;
+add.s32 %r33, %r33, 1;
+
+BB0_7:
+setp.lt.u32	%p7, %r19, 4;
+@%p7 bra BB0_10;
+
+shl.b32 %r11, %r18, 2;
+mad.lo.s32 %r32, %r19, %r4, %r33;
+mul.wide.s32 %rd20, %r32, 4;
+add.s64 %rd27, %rd2, %rd20;
+mad.lo.s32 %r36, %r33, %r18, %r4;
+
+BB0_9:
+ld.global.f32 %f4, [%rd27];
+mul.wide.s32 %rd21, %r36, 4;
+add.s64 %rd22, %rd1, %rd21;
+st.global.f32 [%rd22], %f4;
+ld.global.f32 %f5, [%rd27+4];
+cvt.s64.s32	%rd23, %r11;
+add.s64 %rd24, %rd22, %rd23;
+st.global.f32 [%rd24], %f5;
+ld.global.f32 %f6, [%rd27+8];
+add.s64 %rd25, %rd24, %rd23;
+st.global.f32 [%rd25], %f6;
+ld.global.f32 %f7, [%rd27+12];
+add.s64 %rd26, %rd25, %rd23;
+st.global.f32 [%rd26], %f7;
+add.s64 %rd27, %rd27, 16;
+add.s32 %r36, %r36, %r11;
+add.s32 %r33, %r33, 4;
+setp.lt.s32	%p8, %r33, %r19;
+@%p8 bra BB0_9;
+
+BB0_10:
+ret;
+}

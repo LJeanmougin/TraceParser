@@ -1,0 +1,64 @@
+.version 7.0
+.target sm_75
+.address_size 64
+.visible .entry _Z8solver_2iiPfS_S_S_S_S_S_S_S_(
+.param .u32 _Z8solver_2iiPfS_S_S_S_S_S_S_S__param_0,
+.param .u32 _Z8solver_2iiPfS_S_S_S_S_S_S_S__param_1,
+.param .u64 _Z8solver_2iiPfS_S_S_S_S_S_S_S__param_2,
+.param .u64 _Z8solver_2iiPfS_S_S_S_S_S_S_S__param_3,
+.param .u64 _Z8solver_2iiPfS_S_S_S_S_S_S_S__param_4,
+.param .u64 _Z8solver_2iiPfS_S_S_S_S_S_S_S__param_5,
+.param .u64 _Z8solver_2iiPfS_S_S_S_S_S_S_S__param_6,
+.param .u64 _Z8solver_2iiPfS_S_S_S_S_S_S_S__param_7,
+.param .u64 _Z8solver_2iiPfS_S_S_S_S_S_S_S__param_8,
+.param .u64 _Z8solver_2iiPfS_S_S_S_S_S_S_S__param_9,
+.param .u64 _Z8solver_2iiPfS_S_S_S_S_S_S_S__param_10
+)
+{
+.reg .pred %p<806>;
+.reg .f32 %f<2816>;
+.reg .b32 %r<1381>;
+.reg .f64 %fd<2647>;
+.reg .b64 %rd<205>;
+
+
+ld.param.u32 %r205, [_Z8solver_2iiPfS_S_S_S_S_S_S_S__param_0];
+ld.param.u32 %r204, [_Z8solver_2iiPfS_S_S_S_S_S_S_S__param_1];
+ld.param.u64 %rd20, [_Z8solver_2iiPfS_S_S_S_S_S_S_S__param_2];
+ld.param.u64 %rd26, [_Z8solver_2iiPfS_S_S_S_S_S_S_S__param_3];
+ld.param.u64 %rd21, [_Z8solver_2iiPfS_S_S_S_S_S_S_S__param_4];
+ld.param.u64 %rd22, [_Z8solver_2iiPfS_S_S_S_S_S_S_S__param_5];
+ld.param.u64 %rd23, [_Z8solver_2iiPfS_S_S_S_S_S_S_S__param_6];
+ld.param.u64 %rd24, [_Z8solver_2iiPfS_S_S_S_S_S_S_S__param_7];
+ld.param.u64 %rd25, [_Z8solver_2iiPfS_S_S_S_S_S_S_S__param_8];
+ld.param.u64 %rd27, [_Z8solver_2iiPfS_S_S_S_S_S_S_S__param_9];
+ld.param.u64 %rd28, [_Z8solver_2iiPfS_S_S_S_S_S_S_S__param_10];
+cvta.to.global.u64 %rd1, %rd27;
+cvta.to.global.u64 %rd2, %rd28;
+cvta.to.global.u64 %rd3, %rd26;
+mov.u32 %r206, %ctaid.x;
+shl.b32 %r207, %r206, 5;
+mov.u32 %r208, %tid.x;
+add.s32 %r1, %r207, %r208;
+mul.lo.s32 %r2, %r1, 91;
+cvt.rn.f32.s32	%f1, %r204;
+mov.f32 %f439, 0f41200000;
+div.rn.f32 %f2, %f439, %f1;
+setp.lt.s32	%p32, %r1, %r205;
+setp.gt.s32	%p33, %r204, 0;
+and.pred %p34, %p33, %p32;
+@!%p34 bra BB1_697;
+bra.uni BB1_1;
+
+BB1_1:
+cvta.to.global.u64 %rd29, %rd21;
+mul.lo.s32 %r210, %r1, 18;
+cvt.s64.s32	%rd4, %r2;
+mul.lo.s32 %r211, %r1, 1183;
+cvt.s64.s32	%rd5, %r211;
+mul.wide.s32 %rd30, %r210, 4;
+add.s64 %rd6, %rd29, %rd30;
+mov.f64 %fd558, 0d4000000000000000;
+{
+.reg .b32 %temp; 
+mov.b64 {%temp, %r3}
