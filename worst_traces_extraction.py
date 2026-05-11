@@ -220,7 +220,6 @@ class ResultsDirProducer():
             self.createDir(bench_res_dir)
             kernel_res_dir = os.path.join(bench_res_dir, kernel_name)
             ptx_src_path = self._ptx_paths.getKernelPtxPath(kernel_name)
-            print(res_dict.keys())
             kernel_data = res_dict[kernel_name]
             for warp_count in kernel_data.keys():
                 instance_dir = os.path.join(kernel_res_dir, f"{warp_count}warps")
