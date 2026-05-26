@@ -43,28 +43,30 @@ python3.11 worst_traces_extraction.py ./traces_1w/rodinia_1w_400l ./ptx_files ./
 
 python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_5l_lrr/gpgpusim.config ./exp_rodinia_lrr/rodinia_1b_5l/ 2 ./exp_res.csv
 python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_5l_gto/gpgpusim.config ./exp_rodinia_gto/rodinia_1b_5l/ 2 ./exp_res.csv
-python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_5l_lrr/gpgpusim.config ./exp_rodinia_1w/rodinia_1w_5l/ 1 ./exp_res.csv
 
 python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_10l_lrr/gpgpusim.config ./exp_rodinia_lrr/rodinia_1b_10l/ 2 ./exp_res.csv
 python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_10l_gto/gpgpusim.config ./exp_rodinia_gto/rodinia_1b_10l/ 2 ./exp_res.csv
-python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_10l_lrr/gpgpusim.config ./exp_rodinia_1w/rodinia_1w_10l/ 1 ./exp_res.csv
 
 python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_25l_lrr/gpgpusim.config ./exp_rodinia_lrr/rodinia_1b_25l/ 2 ./exp_res.csv
 python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_25l_gto/gpgpusim.config ./exp_rodinia_gto/rodinia_1b_25l/ 2 ./exp_res.csv
-python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_25l_lrr/gpgpusim.config ./exp_rodinia_1w/rodinia_1w_25l/ 1 ./exp_res.csv
 
 python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_50l_lrr/gpgpusim.config ./exp_rodinia_lrr/rodinia_1b_50l/ 2 ./exp_res.csv
 python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_50l_gto/gpgpusim.config ./exp_rodinia_gto/rodinia_1b_50l/ 2 ./exp_res.csv
-python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_50l_lrr/gpgpusim.config ./exp_rodinia_1w/rodinia_1w_50l/ 1 ./exp_res.csv
 
 python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_100l_lrr/gpgpusim.config ./exp_rodinia_lrr/rodinia_1b_100l/ 2 ./exp_res.csv
 python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_100l_gto/gpgpusim.config ./exp_rodinia_gto/rodinia_1b_100l/ 2 ./exp_res.csv
-python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_100l_lrr/gpgpusim.config ./exp_rodinia_1w/rodinia_1w_100l/ 1 ./exp_res.csv
 
 python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_200l_lrr/gpgpusim.config ./exp_rodinia_lrr/rodinia_1b_200l/ 2 ./exp_res.csv
 python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_200l_gto/gpgpusim.config ./exp_rodinia_gto/rodinia_1b_200l/ 2 ./exp_res.csv
-python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_200l_lrr/gpgpusim.config ./exp_rodinia_1w/rodinia_1w_200l/ 1 ./exp_res.csv
 
 python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_400l_lrr/gpgpusim.config ./exp_rodinia_lrr/rodinia_1b_400l/ 2 ./exp_res.csv
 python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_400l_gto/gpgpusim.config ./exp_rodinia_gto/rodinia_1b_400l/ 2 ./exp_res.csv
+
+
+python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_5l_lrr/gpgpusim.config ./exp_rodinia_1w/rodinia_1w_5l/ 1 ./exp_res.csv
+python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_10l_lrr/gpgpusim.config ./exp_rodinia_1w/rodinia_1w_10l/ 1 ./exp_res.csv
+python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_25l_lrr/gpgpusim.config ./exp_rodinia_1w/rodinia_1w_25l/ 1 ./exp_res.csv
+python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_50l_lrr/gpgpusim.config ./exp_rodinia_1w/rodinia_1w_50l/ 1 ./exp_res.csv
+python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_100l_lrr/gpgpusim.config ./exp_rodinia_1w/rodinia_1w_100l/ 1 ./exp_res.csv
+python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_200l_lrr/gpgpusim.config ./exp_rodinia_1w/rodinia_1w_200l/ 1 ./exp_res.csv
 python3 ../sass-decompiler/src/ptx_graph_experiments.py ./configs/SM86_ORIN_400l_lrr/gpgpusim.config ./exp_rodinia_1w/rodinia_1w_400l/ 1 ./exp_res.csv
